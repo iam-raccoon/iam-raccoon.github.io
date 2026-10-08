@@ -4,7 +4,7 @@ date: 2026-09-15 20:00:00 +0900
 categories: [뱀 로봇, 설계 과제]
 tags: [뱀로봇, 요구사항, ahp, qfd, 인수기준]
 image:
-  path: /assets/img/snake/hw2-ahp-qfd.png
+  path: /assets/img/snake/hw2-ahp-qfd-cover.png
   alt: AHP 사용자 요구 중요도와 QFD 설계 특성 중요도
 ---
 
