@@ -15,7 +15,7 @@
 
 - name: HL-FMA 자율주행 대회
   short: HL-FMA
-  category: HL-FMA 자율주행
+  category: HL-FMA 자율주행 경진대회
   prefix: "HL-FMA 자율주행 대회 "
   summary: VTD 시뮬레이터 자율주행 경진대회 완주, 476 / 500점. 패킷에 없는 차선과 정지선을 지도에서 미리 계산하고 도로교통법 15개 항목을 지킨 기록.
   video: /assets/video/home/hlfma-loop.mp4
