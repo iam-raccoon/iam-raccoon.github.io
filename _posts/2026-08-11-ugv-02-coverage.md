@@ -1,7 +1,7 @@
 ---
 title: "UGV 구조수색 로봇 ② 지도를 다 그렸다 ≠ 다 봤다"
 date: 2026-08-11 20:00:00 +0900
-categories: [UGV 구조수색, 시뮬레이션]
+categories: [UGV 구조수색 로봇]
 tags: [ugv, 탐사, 커버리지, nav2, 트리아지, yolo]
 image:
   path: /assets/img/ugv/visual-coverage-cover.png

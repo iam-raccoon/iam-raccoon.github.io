@@ -1,7 +1,7 @@
 ---
 title: "VTOL 자율 인명구조 ④ 경로점마다 다시 그리는 경로, 그리고 실패한 아홉 가지"
 date: 2026-07-30 20:00:00 +0900
-categories: [VTOL 인명구조, 대회]
+categories: [로봇항공기경연대회 VTOL]
 tags: [vtol, px4, 경로계획, dubins, 고정익]
 ---
 

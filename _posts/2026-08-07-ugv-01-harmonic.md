@@ -1,7 +1,7 @@
 ---
 title: "UGV 구조수색 로봇 ① 날아가는 로봇과 뒤집힌 방위각"
 date: 2026-08-07 20:00:00 +0900
-categories: [UGV 구조수색, 시뮬레이션]
+categories: [UGV 구조수색 로봇]
 tags: [ugv, ros2, gazebo, 구조로봇, yolo, 열화상]
 image:
   path: /assets/img/ugv/gazebo-world-cover.jpg

@@ -1,7 +1,7 @@
 ---
 title: "VTOL 자율 인명구조 ③ 시뮬이 매번 다른 답을 낼 때"
 date: 2026-07-29 20:00:00 +0900
-categories: [VTOL 인명구조, 대회]
+categories: [로봇항공기경연대회 VTOL]
 tags: [vtol, px4, 고정익, 경로추종, ros2, sitl]
 ---
 
