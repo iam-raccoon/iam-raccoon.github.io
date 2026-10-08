@@ -1,5 +1,5 @@
 ---
-title: "VTOL 자율 인명구조 ③ 시뮬이 매번 다른 답을 낼 때"
+title: "로봇항공기경연대회 VTOL ② 고정익 경로점 추종 — 제어 루프를 센서 메시지에 묶기"
 date: 2026-07-29 20:00:00 +0900
 categories: [로봇항공기경연대회 VTOL]
 tags: [vtol, px4, 고정익, 경로추종, ros2, sitl]
@@ -43,16 +43,28 @@ PC 세 대로 튜닝을 나눠 돌렸더니 같은 코드가 PC 마다 다른 �
 
 제어 루프가 **실제 시간 20 Hz 타이머**로 돌고 있었다. 그런데 시뮬레이터의 시간은 PC 사양 · 부하에 따라 실제 시간보다 빠르거나 느리게 간다. 그러면 같은 비행이라도 제어 명령이 **비행의 어느 순간에 들어가는지**가 PC 마다, 판마다 달라진다.
 
-그래서 루프를 **위치 메시지가 도착할 때마다** 돌게 바꿨다. 이제 제어 명령은 시뮬레이터의 시간에 묶인다.
+그래서 루프를 **위치 메시지가 도착할 때마다** 돌게 바꿨다. PX4 SITL 은 시뮬레이터와 한 걸음씩 맞춰 (lockstep) 돌기 때문에, 위치 메시지에 묶으면 제어 명령도 시뮬레이터의 시간에 묶인다.
 
 ```python
+# 초기화 : 센서 구동이면 벽시계 타이머를 아예 만들지 않는다 (명령 중복 방지)
 if not CTRL_ON_SENSOR:
     self.create_timer(CONTROL_DT_S, self._control_loop)
-...
-# 위치 메시지 콜백 안에서
-if CTRL_ON_SENSOR:
-    self._control_loop()
+
+def _cb_local_pos(self, msg: VehicleLocalPosition) -> None:
+    ...
+    self._local_pos = msg
+    # 경로 재계산용 짧은 위치 버퍼 (③편)
+    self._pos_buf.append((float(msg.x), float(msg.y)))
+    if len(self._pos_buf) > FW_RECEDING_SETTLE_N:
+        self._pos_buf.pop(0)
+    ...
+    # 센서 구동 제어 루프 : 이 콜백 (lockstep 시뮬과 동기) 에서 실행
+    #   → 명령이 시뮬 step 과 위상 고정 = 판마다 같은 결과
+    if CTRL_ON_SENSOR:
+        self._control_loop()
 ```
+
+설정 한 줄 (`CTRL_ON_SENSOR`) 로 예전 방식으로 되돌릴 수 있게 남겨 뒀다.
 
 | | 경로점 2 오차 (3번 반복) | PC 사이 |
 |---|---|---|
@@ -65,11 +77,22 @@ if CTRL_ON_SENSOR:
 
 PX4 v1.17 은 일부 메시지에 버전을 붙였다 (`_v1`). 로그에 "sequence size exceeds remaining buffer" 경고가 쏟아져서 새 버전 토픽만 구독하게 바꿨다. 그랬더니 이번엔 **해석이 깨진 쓰레기 메시지** (전부 0, 홈 고도 3,231 m) 가 들어와 좌표가 무너졌다.
 
-여러 토픽 구독으로 되돌리고, 말이 안 되는 값을 거르는 문턱을 넣었다 (수평 5 km · 고도 1 km 넘으면 버림).
+여러 토픽 구독으로 되돌리고, 말이 안 되는 값은 걸렀다. 이때 주의할 점이 하나 있다. 쓰레기 값을 버린다고 **제어 루프까지 건너뛰면 안 된다**. 위치 콜백이 루프를 돌리는 구조라 루프가 멈추면 PX4 로 가는 명령이 끊기고, 오프보드 안전장치가 걸려 시동이 꺼진다. 그래서 값은 버리되 루프는 **마지막 정상 위치로** 계속 돌린다.
 
-## 하루에 세 번 바뀐 선회 반경
-
-최소 선회 반경 `R_MIN` 이 하루에 48 → 50 → 40 m 로 오갔다. 48 에서 경로점 4 가 15.5 m 넘어가서 50 으로 되돌렸다가, 같은 날 "50 으로 되돌린 게 오판, 40 이 맞다" 로 다시 바꿨다. 판마다 결과가 흔들리던 때라 한 판 결과로 값을 고르고 있었다. 위의 결정론화가 필요했던 이유이기도 하다.
+```python
+def _cb_local_pos(self, msg: VehicleLocalPosition) -> None:
+    # _v1 토픽 역직렬화 쓰레기 (거대값 / 전부 0) 방어
+    _bad = (abs(msg.x) > 5000.0 or abs(msg.y) > 5000.0 or abs(msg.z) > 1000.0
+            or (self._home_pos_set
+                and msg.x == 0.0 and msg.y == 0.0 and msg.z == 0.0
+                and msg.vx == 0.0 and msg.vy == 0.0 and msg.vz == 0.0))
+    if _bad:
+        if CTRL_ON_SENSOR and self._local_pos is not None:
+            self._control_loop()      # 값은 버리고, 루프는 마지막 정상 위치로 계속
+        return
+    self._local_pos = msg
+    ...
+```
 
 ## RC 가 없는 시뮬에서 천이 대신 귀환
 
@@ -79,4 +102,4 @@ PX4 v1.17 은 일부 메시지에 버전을 붙였다 (`_v1`). 로그에 "sequen
 param set-default COM_OBL_RC_ACT 5
 ```
 
-← [②편]({% post_url 2026-07-28-vtol-02-grab %}) · [④편]({% post_url 2026-07-30-vtol-04-receding %}) →
+← [①편]({% post_url 2026-07-28-vtol-01-grab %}) · [③편]({% post_url 2026-07-30-vtol-03-receding %}) →
