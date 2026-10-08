@@ -1,0 +1,24 @@
+# 메인 화면 연재 패널. 새 연재는 아래에 한 덩어리 추가하면 된다.
+# category : 글의 첫 번째 카테고리와 같아야 한다 (편 수 · 기간을 여기서 센다)
+# prefix   : 최근 글 목록에서 제목 앞에서 떼어 낼 연재 이름
+# color    : 연재 표시 막대 색
+
+- name: 뱀 로봇 졸업작품
+  short: 뱀 로봇
+  category: 뱀 로봇
+  prefix: "뱀 로봇 졸업작품 "
+  summary: 붕괴 잔해 속 요구조자를 굴착 전에 확인하는 뱀형 로봇. 요구에서 시험 조건까지 근거를 붙여 설계하고 MuJoCo 로 검증한다.
+  video: /assets/video/home/snake-loop.mp4
+  poster: /assets/img/home/snake-poster.jpg
+  alt: MuJoCo 시뮬레이션에서 뱀 로봇이 60 mm 턱을 몸을 맞춰 내려가는 장면
+  color: "#e8892f"
+
+- name: HL-FMA 자율주행 대회
+  short: HL-FMA
+  category: HL-FMA 자율주행
+  prefix: "HL-FMA 자율주행 대회 "
+  summary: VTD 시뮬레이터 자율주행 경진대회 완주, 476 / 500점. 패킷에 없는 차선과 정지선을 지도에서 미리 계산하고 도로교통법 15개 항목을 지킨 기록.
+  video: /assets/video/home/hlfma-loop.mp4
+  poster: /assets/img/home/hlfma-poster.jpg
+  alt: VTD 시뮬레이터에서 차가 차로 위 타이어 더미를 옆 차로로 옮겨 피하는 장면
+  color: "#e3c21a"
