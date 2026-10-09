@@ -61,21 +61,19 @@ layout: default
   /* 소개 */
   .home-intro {
     margin: 0.5rem 0 var(--home-gap);
-    max-width: 34rem;
   }
   .home-intro h1 {
     font-family: 'IBM Plex Sans KR', sans-serif;
     font-weight: 600;
-    font-size: clamp(1.55rem, 1.15rem + 1.5vw, 2.15rem);
-    line-height: 1.32;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.8rem);
+    line-height: 1.35;
     color: var(--heading-color);
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.35rem;
   }
   .home-intro p {
     color: var(--text-muted-color);
-    font-size: 1.02rem;
-    line-height: 1.7;
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
     margin: 0;
   }
 
@@ -201,9 +199,15 @@ layout: default
 
 <div class="home flex-grow-1 px-xl-1">
   {% if paginator.page == 1 %}
+    {% assign n_series = 0 %}
+    {% for s in site.data.series %}
+      {% if site.categories[s.category] and site.categories[s.category].size > 0 %}
+        {% assign n_series = n_series | plus: 1 %}
+      {% endif %}
+    {% endfor %}
     <section class="home-intro">
-      <h1>로봇과 자율주행을 시뮬레이션에서 먼저 굴려 보고 만듭니다</h1>
-      <p>무엇을 정했고, 왜 그렇게 정했고, 어디서 틀렸는지를 남깁니다.</p>
+      <h1>iam-raccoon 의 프로젝트 기록</h1>
+      <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
     </section>
 
     <section class="series-grid" aria-label="연재">

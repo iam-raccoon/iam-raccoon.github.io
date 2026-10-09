@@ -1,7 +1,7 @@
 ---
-title: "뱀 로봇 졸업작품 ⑧ 요구가 바뀌어도 추적되나 — 관절이 고장 나면"
+title: "뱀 로봇 설계 ⑧ 요구가 바뀌어도 추적되나 — 관절이 고장 나면"
 date: 2026-10-07 19:00:00 +0900
-categories: [뱀 로봇, 피드백 대응]
+categories: [뱀 로봇 설계, 피드백 대응]
 tags: [뱀로봇, v프로세스, 요구추적, 고장, ahp, qfd]
 image:
   path: /assets/img/snake/ur7-straight-speed.png

@@ -1,7 +1,7 @@
 ---
-title: "뱀 로봇 졸업작품 ⑤ 관절이 서로 부딪힌다 — 바퀴를 관절 축으로"
+title: "뱀 로봇 설계 ⑤ 관절이 서로 부딪힌다 — 바퀴를 관절 축으로"
 date: 2026-10-06 22:00:00 +0900
-categories: [뱀 로봇, 피드백 대응]
+categories: [뱀 로봇 설계, 피드백 대응]
 tags: [뱀로봇, 관절간섭, 바퀴배치, 관절범위, 트레일러]
 image:
   path: /assets/img/snake/joint-interference.png

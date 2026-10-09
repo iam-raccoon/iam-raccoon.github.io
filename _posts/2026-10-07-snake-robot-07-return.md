@@ -1,7 +1,7 @@
 ---
-title: "뱀 로봇 졸업작품 ⑦ 돌아오는 길 — 꼬리 트레일러와 멈춤턱"
+title: "뱀 로봇 설계 ⑦ 돌아오는 길 — 꼬리 트레일러와 멈춤턱"
 date: 2026-10-07 18:00:00 +0900
-categories: [뱀 로봇, 피드백 대응]
+categories: [뱀 로봇 설계, 피드백 대응]
 tags: [뱀로봇, 복귀, 후진, 트레일러, 멈춤턱, 단차]
 image:
   path: /assets/img/snake/m0-hinge-compare-cover.png
