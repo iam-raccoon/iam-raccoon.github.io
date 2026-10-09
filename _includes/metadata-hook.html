@@ -1,0 +1,9 @@
+{% if page.layout == 'home' %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@600&display=swap">
+{% endif %}
+<style>
+  /* 사이드바 소개 문구가 낱글자로 끊기지 않게 ("기 / 록") */
+  #sidebar .site-subtitle { word-break: keep-all; text-wrap: balance; }
+</style>

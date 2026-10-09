@@ -1,0 +1,278 @@
+---
+layout: default
+---
+
+{% comment %}
+  Chirpy v7.6.0 의 _layouts/home.html 을 바꾼 것.
+  첫 쪽 : 소개 + 연재 패널 (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
+  고정 글 · 쪽 나누기 계산은 원본 그대로.
+{% endcomment %}
+
+{% assign all_pinned = site.posts | where: 'pin', 'true' %}
+{% assign all_normal = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+
+{% assign posts = '' | split: '' %}
+
+{% assign visible_start = paginator.page | minus: 1 | times: paginator.per_page %}
+{% assign visible_end = visible_start | plus: paginator.per_page %}
+
+{% if all_pinned.size > visible_start %}
+  {% if all_pinned.size > visible_end %}
+    {% assign pinned_size = paginator.per_page %}
+  {% else %}
+    {% assign pinned_size = all_pinned.size | minus: visible_start %}
+  {% endif %}
+
+  {% for i in (visible_start..all_pinned.size) limit: pinned_size %}
+    {% assign posts = posts | push: all_pinned[i] %}
+  {% endfor %}
+{% else %}
+  {% assign pinned_size = 0 %}
+{% endif %}
+
+{% assign normal_size = paginator.posts | size | minus: pinned_size %}
+
+{% if normal_size > 0 %}
+  {% if pinned_size > 0 %}
+    {% assign normal_start = 0 %}
+  {% else %}
+    {% assign normal_start = visible_start | minus: all_pinned.size %}
+  {% endif %}
+
+  {% assign normal_end = normal_start | plus: normal_size | minus: 1 %}
+
+  {% for i in (normal_start..normal_end) %}
+    {% assign posts = posts | push: all_normal[i] %}
+  {% endfor %}
+{% endif %}
+
+<style>
+  .home {
+    --home-gap: clamp(1.25rem, 0.8rem + 1.6vw, 2rem);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  .home a:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* 소개 */
+  .home-intro {
+    margin: 0.5rem 0 var(--home-gap);
+    max-width: 34rem;
+  }
+  .home-intro h1 {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.55rem, 1.15rem + 1.5vw, 2.15rem);
+    line-height: 1.32;
+    letter-spacing: -0.01em;
+    color: var(--heading-color);
+    margin: 0 0 0.75rem;
+  }
+  .home-intro p {
+    color: var(--text-muted-color);
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* 연재 패널 */
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--home-gap);
+    margin-bottom: calc(var(--home-gap) * 1.6);
+  }
+  .series-panel {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: none !important;
+  }
+  .series-panel:hover { color: inherit; }
+  .series-media {
+    aspect-ratio: 16 / 10;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--img-bg);
+    margin-bottom: 1rem;
+  }
+  .series-media video,
+  .series-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .series-name {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: 1.22rem;
+    line-height: 1.35;
+    color: var(--heading-color);
+    border-left: 4px solid var(--series-color);
+    padding-left: 0.65rem;
+    margin: 0 0 0.55rem;
+  }
+  .series-panel:hover .series-name span {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+  .series-summary {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    margin: 0 0 0.6rem;
+  }
+  .series-meta {
+    color: var(--text-muted-color);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+  .series-meta strong {
+    color: var(--link-color);
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+
+  /* 글 목록 */
+  .post-index h2 {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--heading-color);
+    margin: 0 0 0.4rem;
+  }
+  .post-index ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .post-index li {
+    border-top: 1px solid var(--main-border-color);
+  }
+  .post-index li a {
+    display: grid;
+    grid-template-columns: 5.2rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: 1rem;
+    padding: 0.8rem 0.25rem;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: none !important;
+  }
+  .post-index li a:hover .post-index-title {
+    color: var(--link-color);
+  }
+  .post-index time,
+  .post-index .post-index-series {
+    color: var(--text-muted-color);
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .post-index-title {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    border-left: 3px solid var(--series-color, transparent);
+    padding-left: 0.6rem;
+  }
+  .post-index .pin {
+    color: var(--text-muted-color);
+    font-size: 0.8rem;
+    margin-left: 0.4rem;
+  }
+
+  @media (max-width: 767.98px) {
+    .series-grid { grid-template-columns: minmax(0, 1fr); }
+    .post-index li a {
+      grid-template-columns: auto minmax(0, 1fr);
+      row-gap: 0.2rem;
+    }
+    .post-index-title { grid-column: 1 / -1; grid-row: 2; }
+    .post-index .post-index-series { justify-self: end; }
+  }
+</style>
+
+<div class="home flex-grow-1 px-xl-1">
+  {% if paginator.page == 1 %}
+    <section class="home-intro">
+      <h1>로봇과 자율주행을 시뮬레이션에서 먼저 굴려 보고 만듭니다</h1>
+      <p>무엇을 정했고, 왜 그렇게 정했고, 어디서 틀렸는지를 남깁니다.</p>
+    </section>
+
+    <section class="series-grid" aria-label="연재">
+      {% for s in site.data.series %}
+        {% assign s_posts = site.categories[s.category] %}
+        {% if s_posts and s_posts.size > 0 %}
+          {% assign first = s_posts | last %}
+          {% assign latest = s_posts | first %}
+          {% assign y1 = first.date | date: '%Y' %}
+          {% assign y2 = latest.date | date: '%Y' %}
+          {% assign m1 = first.date | date: '%-m' %}
+          {% assign m2 = latest.date | date: '%-m' %}
+          <a class="series-panel" href="{{ first.url | relative_url }}" style="--series-color: {{ s.color }}">
+            <div class="series-media">
+              <video autoplay muted loop playsinline preload="metadata"
+                poster="{{ s.poster | relative_url }}" aria-label="{{ s.alt }}">
+                <source src="{{ s.video | relative_url }}" type="video/mp4">
+              </video>
+            </div>
+            <h2 class="series-name"><span>{{ s.name }}</span></h2>
+            <p class="series-summary">{{ s.summary }}</p>
+            <p class="series-meta">
+              {{ s_posts.size }}편,
+              {% if y1 == y2 and m1 == m2 %}{{ y1 }}년 {{ m1 }}월
+              {%- elsif y1 == y2 %}{{ y1 }}년 {{ m1 }}월 ~ {{ m2 }}월
+              {%- else %}{{ y1 }}년 {{ m1 }}월 ~ {{ y2 }}년 {{ m2 }}월{% endif %}
+              <strong>①편부터 읽기</strong>
+            </p>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </section>
+  {% endif %}
+
+  <section class="post-index">
+    <h2>{% if paginator.page == 1 %}최근 글{% else %}지난 글{% endif %}</h2>
+    <ol>
+      {% for post in posts %}
+        {% assign series = nil %}
+        {% for s in site.data.series %}
+          {% if post.categories[0] == s.category %}{% assign series = s %}{% endif %}
+        {% endfor %}
+        {% if series %}
+          {% assign title = post.title | remove_first: series.prefix %}
+        {% else %}
+          {% assign title = post.title %}
+        {% endif %}
+        <li>
+          <a href="{{ post.url | relative_url }}" {% if series %}style="--series-color: {{ series.color }}"{% endif %}>
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+            <span class="post-index-title">{{ title }}{% if post.pin %}<span class="pin"><i class="fas fa-thumbtack fa-fw"></i></span>{% endif %}</span>
+            <span class="post-index-series">{% if series %}{{ series.short }}{% else %}{{ post.categories | first }}{% endif %}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ol>
+  </section>
+</div>
+
+{% if paginator.total_pages > 1 %}
+  {% include post-paginator.html %}
+{% endif %}
+
+<script>
+  // 움직임 줄이기 설정이면 영상 대신 포스터만
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.series-media video').forEach(function (v) {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
+  }
+</script>
