@@ -1,7 +1,7 @@
 ---
-title: "뱀 로봇 졸업작품 ④ 근거부터 다시 — 기본 형상 I"
+title: "뱀 로봇 설계 ④ 근거부터 다시 — 기본 형상 I"
 date: 2026-10-06 12:00:00 +0900
-categories: [뱀 로봇, 설계 과제]
+categories: [뱀 로봇 설계, 설계 과제]
 tags: [뱀로봇, 기본설계, 시험조건, 관절배치, mujoco]
 image:
   path: /assets/img/snake/test-course-hw4.png

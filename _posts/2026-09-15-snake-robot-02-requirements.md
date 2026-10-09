@@ -1,7 +1,7 @@
 ---
-title: "뱀 로봇 졸업작품 ② 사용자 요구 7개와 AHP · QFD"
+title: "뱀 로봇 설계 ② 사용자 요구 7개와 AHP · QFD"
 date: 2026-09-15 20:00:00 +0900
-categories: [뱀 로봇, 설계 과제]
+categories: [뱀 로봇 설계, 설계 과제]
 tags: [뱀로봇, 요구사항, ahp, qfd, 인수기준]
 image:
   path: /assets/img/snake/hw2-ahp-qfd-cover.png

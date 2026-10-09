@@ -3,10 +3,10 @@
 # prefix   : 최근 글 목록에서 제목 앞에서 떼어 낼 연재 이름
 # color    : 연재 표시 막대 색
 
-- name: 뱀 로봇 졸업작품
+- name: 뱀 로봇 설계
   short: 뱀 로봇
-  category: 뱀 로봇
-  prefix: "뱀 로봇 졸업작품 "
+  category: 뱀 로봇 설계
+  prefix: "뱀 로봇 설계 "
   summary: 붕괴 잔해 속 요구조자를 굴착 전에 확인하는 뱀형 로봇. 요구에서 시험 조건까지 근거를 붙여 설계하고 MuJoCo 로 검증한다.
   video: /assets/video/home/snake-loop.mp4
   poster: /assets/img/home/snake-poster.jpg
