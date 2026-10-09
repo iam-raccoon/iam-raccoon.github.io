@@ -44,7 +44,7 @@ VTD 를 모는 주행기는 오프라인 환경과 **같은 관측 · 행동 · 
 
 {% include embed/video.html src='/assets/video/vtdrl/vtd-turn-side-by-side.mp4' title='[VTD] 코스 A 교차로 (반지름 7 m 우회전). 왼쪽 선생님은 천천히 돌며 차로를 지키고, 오른쪽 학생은 빠르게 들어가 길 밖으로 밀려난다' autoplay=true loop=true muted=true %}
 
-같은 장면을 주행 기록 (위치 · 속도) 으로 위에서 다시 그리면, **같은 학생이 오프라인에서는 43 km/h 로도 안쪽으로 깔끔하게 돈다** 는 게 한 화면에 보인다.
+같은 장면을 주행 기록 (위치 · 속도) 으로 위에서 다시 그리면, **같은 학생이 오프라인에서는 40 km/h 넘는 속도로도 안쪽으로 깔끔하게 돈다** 는 게 한 화면에 보인다.
 
 {% include embed/video.html src='/assets/video/vtdrl/junction-a.mp4' title='주행 기록으로 다시 그린 코스 A 교차로 (2배속). 초록 선생님 [VTD], 빨강 학생 [VTD] — 이탈 후 리스폰, 파랑 같은 학생 [오프]' autoplay=true loop=true muted=true %}
 
