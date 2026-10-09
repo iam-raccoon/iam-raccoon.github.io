@@ -58,11 +58,10 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 : 가운데 제목 + 너구리 일러스트 (모니터 화면 = 연재 목록) */
+  /* 소개 : 가운데 제목 + 터미널 카드 (위로 너구리가 빼꼼) */
   .home-intro {
     text-align: center;
     margin: 0.25rem auto calc(var(--home-gap) * 1.4);
-    max-width: 760px;
   }
   .home-intro h1 {
     font-family: 'IBM Plex Sans KR', sans-serif;
@@ -72,39 +71,84 @@ layout: default
     color: var(--heading-color);
     margin: 0 0 0.35rem;
   }
-  .home-intro p {
+  .home-intro > p {
     color: var(--text-muted-color);
     font-size: 0.95rem;
     font-variant-numeric: tabular-nums;
-    margin: 0 0 0.75rem;
+    margin: 0;
   }
-  .rc svg { display: block; width: 100%; height: auto; }
-  .rc .tail { transform-box: fill-box; transform-origin: 85% 95%; animation: rc-tail 3.2s ease-in-out infinite; }
-  .rc .eye  { transform-box: fill-box; transform-origin: center; animation: rc-blink 5s infinite; }
-  .rc .paw  { animation: rc-type 0.42s ease-in-out infinite alternate; }
-  .rc .paw2 { animation-delay: 0.21s; }
-  .rc .cursor { animation: rc-cursor 1s steps(1) infinite; }
-  .rc a .row-bg { fill: transparent; transition: fill .15s; }
-  .rc a:hover .row-bg, .rc a:focus-visible .row-bg { fill: #233047; }
-  .rc a:hover .row-name { text-decoration: underline; }
-  .rc a:focus { outline: none; }
-  @keyframes rc-tail  { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg); } }
-  @keyframes rc-blink { 0%,94%,100% { transform: scaleY(1); } 96% { transform: scaleY(.1); } }
-  @keyframes rc-type  { from { transform: translateY(0); } to { transform: translateY(-5px); } }
-  @keyframes rc-cursor { 0% { opacity: 1; } 50% { opacity: 0; } }
-  @media (prefers-reduced-motion: reduce) { .rc * { animation: none !important; } }
-
-  /* 휴대폰 : 모니터 글씨가 너무 작아 같은 링크를 그림 아래 한 줄로 */
-  .rc-mobile { display: none; }
-  @media (max-width: 575.98px) {
-    .rc-mobile {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 0.9rem;
-      list-style: none; padding: 0; margin: 0.6rem 0 0; font-size: 0.85rem;
-    }
-    .rc-mobile a { color: var(--text-color); text-decoration: none; border-bottom: none !important; white-space: nowrap; }
-    .rc-mobile a::before { content: ""; display: inline-block; width: 0.5em; height: 0.5em; border-radius: 50%;
-      background: var(--series-color); margin-right: 0.35em; vertical-align: 0.1em; }
-    .rc-mobile span { color: var(--text-muted-color); font-size: 0.8em; }
+  .term-wrap {
+    position: relative;
+    max-width: 540px;
+    margin: 0 auto;
+    padding-top: 96px;
+  }
+  .term-raccoon {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 148px;
+    height: 148px;
+    margin-left: -74px;
+    background: url("{{ '/assets/img/home/raccoon-fluent.png' | relative_url }}") center / contain no-repeat;
+    animation: rc-peek 5.5s ease-in-out infinite;
+  }
+  @keyframes rc-peek {
+    0%, 100% { transform: translateY(14px) rotate(-3deg); }
+    35%, 65% { transform: translateY(0) rotate(3deg); }
+  }
+  .term {
+    position: relative;
+    background: #141b27;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(15, 22, 34, 0.22);
+    text-align: left;
+    overflow: hidden;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 14px;
+    background: #1c2433;
+  }
+  .term-bar i { width: 11px; height: 11px; border-radius: 50%; }
+  .term-bar em {
+    flex: 1;
+    text-align: center;
+    font-style: normal;
+    font-size: 0.78rem;
+    color: #7b8698;
+    margin-right: 39px;
+  }
+  .term-body { padding: 12px 14px 14px; }
+  .term-line {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.88rem;
+    color: #9fb3cf;
+    padding: 0 8px;
+  }
+  .term ul { list-style: none; padding: 0; margin: 6px 0 8px; }
+  .term li a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.42rem 8px;
+    border-radius: 6px;
+    color: #e6edf7;
+    text-decoration: none;
+    border-bottom: none !important;
+    transition: background 0.15s;
+  }
+  .term li a:hover, .term li a:focus-visible { background: #233047; color: #fff; }
+  .term li a:focus-visible { outline: 2px solid #7fb0ff; outline-offset: 0; }
+  .term li i { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--series-color); }
+  .term li b { flex: 1; font-weight: 500; font-size: 0.98rem; }
+  .term li span { color: #7b8698; font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+  .term .cursor { color: #6ee7a0; animation: rc-cursor 1s steps(1) infinite; }
+  @keyframes rc-cursor { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) {
+    .term-raccoon, .term .cursor { animation: none; }
   }
 
   /* 글 목록 */
@@ -175,124 +219,31 @@ layout: default
     {% endfor %}
     <section class="home-intro">
       <h1>iam-raccoon 의 프로젝트 기록</h1>
-      <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편 · 모니터 속 프로젝트를 누르면 첫 편으로</p>
-      <div class="rc">
-    <svg viewBox="0 0 720 430" role="group" aria-label="책상 앞 너구리와 프로젝트 목록이 떠 있는 모니터">
-  <defs>
-    <linearGradient id="rc-fur" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#9aa0aa"/><stop offset="1" stop-color="#7d838e"/>
-    </linearGradient>
-    <linearGradient id="rc-desk" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#c8955f"/><stop offset="1" stop-color="#a87443"/>
-    </linearGradient>
-    <linearGradient id="rc-screen" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#17202f"/><stop offset="1" stop-color="#0f1622"/>
-    </linearGradient>
-  </defs>
-
-  <!-- 바닥 그림자 -->
-  <ellipse cx="360" cy="414" rx="330" ry="12" fill="#000" opacity=".07"/>
-
-  <!-- 꼬리 (줄무늬 = 같은 경로를 점선으로 한 번 더) -->
-  <g class="tail">
-    <path d="M150 352 C 70 352, 40 300, 52 250 C 60 216, 86 200, 102 206" fill="none" stroke="#868c97" stroke-width="40" stroke-linecap="round"/>
-    <path d="M150 352 C 70 352, 40 300, 52 250 C 60 216, 86 200, 102 206" fill="none" stroke="#3a3e47" stroke-width="40" stroke-dasharray="22 24" stroke-dashoffset="-10"/>
-    <circle cx="102" cy="206" r="20" fill="#3a3e47"/>
-  </g>
-
-  <!-- 몸 -->
-  <ellipse cx="170" cy="318" rx="74" ry="62" fill="url(#rc-fur)"/>
-  <ellipse cx="170" cy="330" rx="44" ry="44" fill="#d3d6dc"/>
-
-  <!-- 귀 -->
-  <g>
-    <path d="M104 150 C 100 112, 116 92, 136 104 C 144 112, 146 128, 142 140 Z" fill="#8a909b"/>
-    <path d="M112 142 C 112 120, 122 108, 133 114 C 138 120, 138 130, 136 138 Z" fill="#3a3e47"/>
-    <path d="M236 150 C 240 112, 224 92, 204 104 C 196 112, 194 128, 198 140 Z" fill="#8a909b"/>
-    <path d="M228 142 C 228 120, 218 108, 207 114 C 202 120, 202 130, 204 138 Z" fill="#3a3e47"/>
-  </g>
-
-  <!-- 머리 -->
-  <path d="M170 128 C 226 128, 258 160, 260 196 C 262 222, 248 244, 228 256 C 206 268, 134 268, 112 256 C 92 244, 78 222, 80 196 C 82 160, 114 128, 170 128 Z" fill="url(#rc-fur)"/>
-  <!-- 볼 털 -->
-  <path d="M84 214 L 66 230 L 92 236 Z" fill="#8a909b"/>
-  <path d="M256 214 L 274 230 L 248 236 Z" fill="#8a909b"/>
-  <!-- 흰 얼굴 -->
-  <path d="M170 168 C 214 166, 246 186, 248 214 C 250 240, 222 258, 170 258 C 118 258, 90 240, 92 214 C 94 186, 126 166, 170 168 Z" fill="#f2f3f5"/>
-  <!-- 이마 줄 -->
-  <path d="M170 132 C 178 150, 178 176, 172 200 L 168 200 C 162 176, 162 150, 170 132 Z" fill="#5d626c"/>
-  <!-- 눈가 검은 띠 -->
-  <path d="M100 206 C 104 184, 126 176, 146 186 C 158 192, 162 204, 156 214 C 146 226, 116 228, 104 220 C 100 216, 99 211, 100 206 Z" fill="#30333b"/>
-  <path d="M240 206 C 236 184, 214 176, 194 186 C 182 192, 178 204, 184 214 C 194 226, 224 228, 236 220 C 240 216, 241 211, 240 206 Z" fill="#30333b"/>
-  <!-- 눈 (모니터 쪽을 봄) -->
-  <g class="eye"><circle cx="134" cy="203" r="10" fill="#0e0f12"/><circle cx="138" cy="199" r="3.6" fill="#fff"/></g>
-  <g class="eye"><circle cx="210" cy="203" r="10" fill="#0e0f12"/><circle cx="214" cy="199" r="3.6" fill="#fff"/></g>
-  <!-- 주둥이 · 코 · 입 -->
-  <ellipse cx="170" cy="236" rx="30" ry="20" fill="#ffffff"/>
-  <path d="M159 226 C 159 219, 181 219, 181 226 C 181 232, 174 236, 170 236 C 166 236, 159 232, 159 226 Z" fill="#22252b"/>
-  <path d="M170 236 L 170 243 M 170 243 C 166 248, 160 248, 157 245 M 170 243 C 174 248, 180 248, 183 245" stroke="#22252b" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-  <!-- 볼 홍조 -->
-  <ellipse cx="118" cy="238" rx="10" ry="6" fill="#f2a7b5" opacity=".55"/>
-  <ellipse cx="222" cy="238" rx="10" ry="6" fill="#f2a7b5" opacity=".55"/>
-
-  <!-- 모니터 -->
-  <rect x="300" y="26" width="392" height="270" rx="18" fill="#2a2f39" stroke="#454c59" stroke-width="2"/>
-  <rect x="314" y="40" width="364" height="236" rx="8" fill="url(#rc-screen)"/>
-  <rect x="478" y="296" width="36" height="44" fill="#3a404b"/>
-  <rect x="436" y="336" width="120" height="12" rx="6" fill="#2a2f39"/>
-
-  <!-- 화면 : 터미널 창 -->
-  <g>
-    <circle cx="332" cy="58" r="5" fill="#ef6a5a"/><circle cx="348" cy="58" r="5" fill="#f2bd4b"/><circle cx="364" cy="58" r="5" fill="#5bc56a"/>
-    <text x="496" y="62" font-size="12" fill="#7b8698" text-anchor="middle">iam-raccoon — ~/projects</text>
-    <text x="330" y="92" font-size="15" fill="#9fb3cf" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">$ ls ~/projects</text>
-    {% assign n_rows = 0 %}
-    {% for s in site.data.series %}
-      {% assign s_posts = site.categories[s.category] %}
-      {% if s_posts and s_posts.size > 0 %}
-        {% assign first = s_posts | last %}
-        {% assign start_url = s.start | default: first.url %}
-        {% assign y = n_rows | times: 28 | plus: 124 %}
-        <a href="{{ start_url | relative_url }}" aria-label="{{ s.name }} — {{ s_posts.size }}편, 첫 편으로">
-          <rect class="row-bg" x="322" y="{{ y | minus: 19 }}" width="348" height="26" rx="5"/>
-          <circle cx="338" cy="{{ y | minus: 6 }}" r="5" fill="{{ s.color }}"/>
-          <text class="row-name" x="352" y="{{ y }}" font-size="16" fill="#e6edf7">{{ s.name }}</text>
-          <text x="660" y="{{ y }}" font-size="13" fill="#7b8698" text-anchor="end">{{ s_posts.size }}편</text>
-        </a>
-        {% assign n_rows = n_rows | plus: 1 %}
-      {% endif %}
-    {% endfor %}
-    {% assign prompt_y = n_rows | times: 28 | plus: 138 %}
-    <text x="330" y="{{ prompt_y }}" font-size="15" fill="#9fb3cf" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">$ <tspan class="cursor" fill="#6ee7a0">▍</tspan></text>
-  </g>
-
-  <!-- 책상 -->
-  <rect x="20" y="352" width="680" height="22" rx="6" fill="url(#rc-desk)"/>
-  <rect x="34" y="374" width="652" height="10" fill="#8a5f37"/>
-  <!-- 키보드 · 머그 -->
-  <rect x="246" y="340" width="190" height="14" rx="5" fill="#d9dce2"/>
-  <rect x="252" y="343" width="178" height="3" rx="1.5" fill="#bfc3cb"/>
-  <rect x="610" y="318" width="34" height="36" rx="6" fill="#e86a4b"/>
-  <path d="M644 326 C 658 326, 658 346, 644 346" stroke="#e86a4b" stroke-width="6" fill="none"/>
-  <path d="M620 310 C 616 300, 626 296, 622 286 M632 310 C 628 300, 638 296, 634 286" stroke="#c7ccd4" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7"/>
-
-  <!-- 팔 · 앞발 (키보드 위) -->
-  <path d="M208 296 C 236 306, 254 322, 268 338" stroke="#8a909b" stroke-width="28" stroke-linecap="round" fill="none"/>
-  <path d="M132 300 C 120 318, 118 330, 124 344" stroke="#8a909b" stroke-width="28" stroke-linecap="round" fill="none"/>
-  <ellipse class="paw" cx="272" cy="340" rx="17" ry="11" fill="#3a3e47"/>
-  <ellipse class="paw paw2" cx="124" cy="346" rx="17" ry="11" fill="#3a3e47"/>
-</svg>
+      <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
+      <div class="term-wrap">
+        <!-- 너구리 : Microsoft Fluent Emoji (MIT) — assets/img/home/fluent-emoji-LICENSE.txt -->
+        <div class="term-raccoon" role="img" aria-label="너구리"></div>
+        <div class="term">
+          <div class="term-bar">
+            <i style="background:#ef6a5a"></i><i style="background:#f2bd4b"></i><i style="background:#5bc56a"></i>
+            <em>iam-raccoon — ~/projects</em>
+          </div>
+          <div class="term-body">
+            <div class="term-line">$ ls ~/projects</div>
+            <ul aria-label="연재">
+              {% for s in site.data.series %}
+                {% assign s_posts = site.categories[s.category] %}
+                {% if s_posts and s_posts.size > 0 %}
+                  {% assign first = s_posts | last %}
+                  {% assign start_url = s.start | default: first.url %}
+                  <li><a href="{{ start_url | relative_url }}" style="--series-color: {{ s.color }}"><i></i><b>{{ s.name }}</b><span>{{ s_posts.size }}편</span></a></li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+            <div class="term-line">$ <span class="cursor">▍</span></div>
+          </div>
+        </div>
       </div>
-      <ul class="rc-mobile" aria-label="연재">
-        {% for s in site.data.series %}
-          {% assign s_posts = site.categories[s.category] %}
-          {% if s_posts and s_posts.size > 0 %}
-            {% assign first = s_posts | last %}
-            {% assign start_url = s.start | default: first.url %}
-            <li><a href="{{ start_url | relative_url }}" style="--series-color: {{ s.color }}">{{ s.name }} <span>{{ s_posts.size }}</span></a></li>
-          {% endif %}
-        {% endfor %}
-      </ul>
     </section>
   {% endif %}
 
