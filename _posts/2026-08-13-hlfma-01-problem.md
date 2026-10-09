@@ -1,7 +1,7 @@
 ---
 title: "HL-FMA 자율주행 대회 ① 패킷에 없는 것부터 세기"
 date: 2026-08-13 20:00:00 +0900
-categories: [HL-FMA 자율주행, 대회]
+categories: [HL-FMA 자율주행 경진대회]
 tags: [자율주행, vtd, 시뮬레이션, 대회, hlfma]
 ---
 

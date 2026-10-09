@@ -62,6 +62,8 @@ jobs:
           path: "_site${{ steps.pages.outputs.base_path }}"
 
   deploy:
+    # main 이 아닌 브랜치 (미리보기 빌드) 는 배포를 건너뜀 — 환경 보호에 막혀 '실패' 로 뜨지 않게
+    if: github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
