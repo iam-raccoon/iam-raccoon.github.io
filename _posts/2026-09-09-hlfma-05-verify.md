@@ -1,7 +1,7 @@
 ---
 title: "HL-FMA 자율주행 대회 ⑤ 점수표 없이 검증하기"
 date: 2026-09-09 20:00:00 +0900
-categories: [HL-FMA 자율주행 경진대회]
+categories: [VTD-Simulation, HL-FMA 자율주행 경진대회]
 tags: [자율주행, 검증, 회귀테스트, 채점기, hlfma]
 ---
 

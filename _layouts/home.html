@@ -209,7 +209,7 @@ layout: default
     <section class="series-grid" aria-label="연재">
       {% for s in site.data.series %}
         {% assign s_posts = site.categories[s.category] %}
-        {% if s_posts and s_posts.size > 0 %}
+        {% if s.video and s_posts and s_posts.size > 0 %}
           {% assign first = s_posts | last %}
           {% assign latest = s_posts | first %}
           {% assign y1 = first.date | date: '%Y' %}
@@ -244,7 +244,7 @@ layout: default
       {% for post in posts %}
         {% assign series = nil %}
         {% for s in site.data.series %}
-          {% if post.categories[0] == s.category %}{% assign series = s %}{% endif %}
+          {% if post.categories contains s.category %}{% assign series = s %}{% endif %}
         {% endfor %}
         {% if series %}
           {% assign title = post.title | remove_first: series.prefix %}
@@ -255,7 +255,7 @@ layout: default
           <a href="{{ post.url | relative_url }}" {% if series %}style="--series-color: {{ series.color }}"{% endif %}>
             <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
             <span class="post-index-title">{{ title }}{% if post.pin %}<span class="pin"><i class="fas fa-thumbtack fa-fw"></i></span>{% endif %}</span>
-            <span class="post-index-series">{% if series %}{{ series.short }}{% else %}{{ post.categories | first }}{% endif %}</span>
+            <span class="post-index-series">{% if series %}{{ series.short }}{% else %}{{ post.categories | last }}{% endif %}</span>
           </a>
         </li>
       {% endfor %}
