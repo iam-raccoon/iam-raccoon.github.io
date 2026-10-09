@@ -1,6 +1,7 @@
 # 메인 화면 연재 패널. 새 연재는 아래에 한 덩어리 추가하면 된다.
 # category : 글의 첫 번째 카테고리와 같아야 한다 (편 수 · 기간을 여기서 센다)
 # prefix   : 최근 글 목록에서 제목 앞에서 떼어 낼 연재 이름
+# start    : (선택) 메인 모니터에서 누르면 갈 첫 글. 없으면 가장 이른 글
 # color    : 연재 표시 막대 색
 
 - name: 뱀 로봇 설계
@@ -13,7 +14,7 @@
   alt: MuJoCo 시뮬레이션에서 뱀 로봇이 60 mm 턱을 몸을 맞춰 내려가는 장면
   color: "#e8892f"
 
-- name: HL-FMA 자율주행 대회
+- name: HL-FMA 자율주행 경진대회
   short: HL-FMA
   category: HL-FMA 자율주행 경진대회
   prefix: "HL-FMA 자율주행 대회 "
@@ -40,4 +41,5 @@
   short: VTOL
   category: 로봇항공기경연대회 VTOL
   prefix: "로봇항공기경연대회 VTOL "
+  start: /posts/vtol-01-grab/   # 날짜가 가장 이른 글이 번외편이라 ①편을 직접 지정
   color: "#8e5bd6"

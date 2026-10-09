@@ -94,6 +94,19 @@ layout: default
   @keyframes rc-cursor { 0% { opacity: 1; } 50% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { .rc * { animation: none !important; } }
 
+  /* 휴대폰 : 모니터 글씨가 너무 작아 같은 링크를 그림 아래 한 줄로 */
+  .rc-mobile { display: none; }
+  @media (max-width: 575.98px) {
+    .rc-mobile {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35rem 0.9rem;
+      list-style: none; padding: 0; margin: 0.6rem 0 0; font-size: 0.85rem;
+    }
+    .rc-mobile a { color: var(--text-color); text-decoration: none; border-bottom: none !important; white-space: nowrap; }
+    .rc-mobile a::before { content: ""; display: inline-block; width: 0.5em; height: 0.5em; border-radius: 50%;
+      background: var(--series-color); margin-right: 0.35em; vertical-align: 0.1em; }
+    .rc-mobile span { color: var(--text-muted-color); font-size: 0.8em; }
+  }
+
   /* 글 목록 */
   .post-index h2 {
     font-family: 'IBM Plex Sans KR', sans-serif;
@@ -238,8 +251,9 @@ layout: default
       {% assign s_posts = site.categories[s.category] %}
       {% if s_posts and s_posts.size > 0 %}
         {% assign first = s_posts | last %}
+        {% assign start_url = s.start | default: first.url %}
         {% assign y = n_rows | times: 28 | plus: 124 %}
-        <a href="{{ first.url | relative_url }}" aria-label="{{ s.name }} — {{ s_posts.size }}편, 첫 편으로">
+        <a href="{{ start_url | relative_url }}" aria-label="{{ s.name }} — {{ s_posts.size }}편, 첫 편으로">
           <rect class="row-bg" x="322" y="{{ y | minus: 19 }}" width="348" height="26" rx="5"/>
           <circle cx="338" cy="{{ y | minus: 6 }}" r="5" fill="{{ s.color }}"/>
           <text class="row-name" x="352" y="{{ y }}" font-size="16" fill="#e6edf7">{{ s.name }}</text>
@@ -269,6 +283,16 @@ layout: default
   <ellipse class="paw paw2" cx="124" cy="346" rx="17" ry="11" fill="#3a3e47"/>
 </svg>
       </div>
+      <ul class="rc-mobile" aria-label="연재">
+        {% for s in site.data.series %}
+          {% assign s_posts = site.categories[s.category] %}
+          {% if s_posts and s_posts.size > 0 %}
+            {% assign first = s_posts | last %}
+            {% assign start_url = s.start | default: first.url %}
+            <li><a href="{{ start_url | relative_url }}" style="--series-color: {{ s.color }}">{{ s.name }} <span>{{ s_posts.size }}</span></a></li>
+          {% endif %}
+        {% endfor %}
+      </ul>
     </section>
   {% endif %}
 
