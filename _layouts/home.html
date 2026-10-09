@@ -58,33 +58,12 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 */
-  .home-intro {
-    margin: 0.5rem 0 var(--home-gap);
-    max-width: 34rem;
-  }
-  .home-intro h1 {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    font-weight: 600;
-    font-size: clamp(1.55rem, 1.15rem + 1.5vw, 2.15rem);
-    line-height: 1.32;
-    letter-spacing: -0.01em;
-    color: var(--heading-color);
-    margin: 0 0 0.75rem;
-  }
-  .home-intro p {
-    color: var(--text-muted-color);
-    font-size: 1.02rem;
-    line-height: 1.7;
-    margin: 0;
-  }
-
   /* 연재 패널 */
   .series-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--home-gap);
-    margin-bottom: calc(var(--home-gap) * 1.6);
+    margin: 1.25rem 0 calc(var(--home-gap) * 1.6);
   }
   .series-panel {
     display: flex;
@@ -201,10 +180,6 @@ layout: default
 
 <div class="home flex-grow-1 px-xl-1">
   {% if paginator.page == 1 %}
-    <section class="home-intro">
-      <h1>로봇과 자율주행을 시뮬레이션에서 먼저 굴려 보고 만듭니다</h1>
-      <p>무엇을 정했고, 왜 그렇게 정했고, 어디서 틀렸는지를 남깁니다.</p>
-    </section>
 
     <section class="series-grid" aria-label="연재">
       {% for s in site.data.series %}
