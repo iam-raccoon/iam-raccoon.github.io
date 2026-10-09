@@ -79,37 +79,44 @@ layout: default
   }
   .term-wrap {
     position: relative;
-    max-width: 540px;
-    margin: 0 auto;
-    padding-top: 140px;
+    max-width: 720px;
+    margin: 1.4rem auto 0;
+    display: flex;
+    align-items: flex-end;
   }
-  .ck-peek {
+  /* 책상선 */
+  .term-wrap::after {
+    content: "";
     position: absolute;
-    top: 0;
-    left: 50%;
-    width: 240px;
-    margin-left: -120px;
+    left: 2%;
+    right: 2%;
+    bottom: -12px;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--main-border-color);
+  }
+  .ck-photo {
+    flex: none;
+    width: clamp(150px, 26vw, 220px);
+    aspect-ratio: 1;
+    margin-right: -34px;
     z-index: 2;
-    pointer-events: none;
+    background: url("{{ '/assets/img/home/raccoon-hat.webp' | relative_url }}") center bottom / contain no-repeat;
+    filter: drop-shadow(0 10px 14px rgba(15, 22, 34, 0.18));
+    transform-origin: 50% 100%;
+    animation: ck-breathe 4.5s ease-in-out infinite;
   }
-  .ck-tail {
-    position: absolute;
-    right: 10%;
-    top: 74px;
-    width: 64px;
-    z-index: 0;
-    transform-origin: 40% 100%;
-    animation: ck-tail 2.8s ease-in-out infinite;
+  @keyframes ck-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.015, 0.99); } }
+  @media (max-width: 575.98px) {
+    .term-wrap { flex-direction: column; align-items: center; }
+    .ck-photo { width: 150px; margin: 0 0 -22px; }
   }
-  .ck-peek svg, .ck-tail svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .ck-peek .ck-head { animation: ck-bob 4s ease-in-out infinite; }
-  .ck-peek .ck-eye { transform-box: fill-box; transform-origin: center; animation: ck-blink 4.6s infinite; }
-  @keyframes ck-tail  { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
-  @keyframes ck-bob   { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-  @keyframes ck-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.12); } }
   .term {
     position: relative;
     z-index: 1;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
     background: #141b27;
     border-radius: 12px;
     box-shadow: 0 12px 32px rgba(15, 22, 34, 0.22);
@@ -159,7 +166,7 @@ layout: default
   .term .cursor { color: #6ee7a0; animation: rc-cursor 1s steps(1) infinite; }
   @keyframes rc-cursor { 50% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) {
-    .ck-tail, .ck-peek *, .term .cursor { animation: none !important; }
+    .ck-photo, .term .cursor { animation: none !important; }
   }
 
   /* 글 목록 */
@@ -232,53 +239,8 @@ layout: default
       <h1>iam-raccoon 의 프로젝트 기록</h1>
       <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
       <div class="term-wrap">
-        <!-- 너구리 : 직접 그린 그림 (치이카와풍) -->
-        <div class="ck-tail"><svg viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <!-- 줄무늬 꼬리 : 윤곽 → 바탕 → 줄무늬 순으로 같은 경로를 겹쳐 그림 -->
-  <path d="M30 108 C 30 70, 22 50, 34 30 C 42 16, 58 14, 62 26" fill="none" stroke="#4a3b33" stroke-width="30" stroke-linecap="round"/>
-  <path d="M30 108 C 30 70, 22 50, 34 30 C 42 16, 58 14, 62 26" fill="none" stroke="#cfc8c2" stroke-width="24" stroke-linecap="round"/>
-  <path d="M30 108 C 30 70, 22 50, 34 30 C 42 16, 58 14, 62 26" fill="none" stroke="#7d7570" stroke-width="24" stroke-dasharray="13 15" stroke-dashoffset="4"/>
-</svg></div>
-        <div class="ck-peek"><svg viewBox="0 0 200 132" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="카드 위로 고개를 내민 너구리">
-  <defs>
-    <clipPath id="ck-above"><rect x="0" y="0" width="200" height="118"/></clipPath>
-  </defs>
-  <g class="ck-head" stroke="#4a3b33" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-    <g clip-path="url(#ck-above)">
-      <!-- 귀 -->
-      <path d="M50 46 C 40 24, 54 8, 70 18 C 75 22, 77 30, 76 36" fill="#a9a29c"/>
-      <path d="M150 46 C 160 24, 146 8, 130 18 C 125 22, 123 30, 124 36" fill="#a9a29c"/>
-      <path d="M55 38 C 51 27, 59 19, 67 24" fill="#f4efea" stroke-width="2.2"/>
-      <path d="M145 38 C 149 27, 141 19, 133 24" fill="#f4efea" stroke-width="2.2"/>
-      <!-- 머리 -->
-      <path d="M100 26 C 150 26, 178 56, 178 92 C 178 120, 160 140, 100 140 C 40 140, 22 120, 22 92 C 22 56, 50 26, 100 26 Z" fill="#cfc8c2"/>
-      <!-- 흰 얼굴 (눈썹 · 주둥이) -->
-      <path d="M100 62 C 120 60, 140 62, 150 70 C 160 80, 156 100, 146 112 C 132 126, 68 126, 54 112 C 44 100, 40 80, 50 70 C 60 62, 80 60, 100 62 Z" fill="#f7f3ef" stroke="none"/>
-      <!-- 눈가 무늬 -->
-      <path d="M40 86 C 42 70, 60 66, 74 73 C 84 79, 84 94, 73 100 C 60 106, 42 102, 40 86 Z" fill="#7d7570" stroke="none"/>
-      <path d="M160 86 C 158 70, 140 66, 126 73 C 116 79, 116 94, 127 100 C 140 106, 158 102, 160 86 Z" fill="#7d7570" stroke="none"/>
-      <!-- 이마 줄 -->
-      <path d="M100 30 C 104 42, 104 54, 100 64 C 96 54, 96 42, 100 30 Z" fill="#9c948e" stroke="none"/>
-    </g>
-    <!-- 눈 -->
-    <g class="ck-eye" stroke="none"><ellipse cx="63" cy="86" rx="6" ry="7.4" fill="#231b17"/><circle cx="65.4" cy="82.6" r="2.3" fill="#fff"/></g>
-    <g class="ck-eye" stroke="none"><ellipse cx="137" cy="86" rx="6" ry="7.4" fill="#231b17"/><circle cx="139.4" cy="82.6" r="2.3" fill="#fff"/></g>
-    <!-- 코 · 입 (ω) -->
-    <ellipse cx="100" cy="98" rx="5" ry="3.6" fill="#4a3b33" stroke="none"/>
-    <path d="M91 105 C 93 110, 98 110, 100 106 C 102 110, 107 110, 109 105" fill="none" stroke-width="2.4"/>
-    <!-- 볼터치 (빗금) -->
-    <ellipse cx="50" cy="108" rx="10" ry="6" fill="#f7b9c4" stroke="none" opacity=".9"/>
-    <ellipse cx="150" cy="108" rx="10" ry="6" fill="#f7b9c4" stroke="none" opacity=".9"/>
-    <path d="M44 111 l4 -6 M50 111 l4 -6 M56 111 l4 -6" stroke="#e8899a" stroke-width="1.8"/>
-    <path d="M144 111 l4 -6 M150 111 l4 -6 M156 111 l4 -6" stroke="#e8899a" stroke-width="1.8"/>
-  </g>
-  <!-- 앞발 -->
-  <g class="ck-paws" stroke="#4a3b33" stroke-width="3" fill="#7d7570">
-    <path d="M58 112 C 58 104, 76 104, 76 112 L 76 124 C 76 130, 58 130, 58 124 Z"/>
-    <path d="M124 112 C 124 104, 142 104, 142 112 L 142 124 C 142 130, 124 130, 124 124 Z"/>
-    <path d="M64 121 l0 5 M70 121 l0 5 M130 121 l0 5 M136 121 l0 5" stroke-width="2"/>
-  </g>
-</svg></div>
+        <!-- 너구리 사진 : chris-hayes (Flickr), 퍼블릭 도메인 — 배경을 지워 씀 -->
+        <div class="ck-photo" role="img" aria-label="털모자를 쓴 너구리"></div>
         <div class="term">
           <div class="term-bar">
             <i style="background:#ef6a5a"></i><i style="background:#f2bd4b"></i><i style="background:#5bc56a"></i>
