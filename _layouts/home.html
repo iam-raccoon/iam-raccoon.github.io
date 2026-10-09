@@ -58,9 +58,13 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 */
+  /* 소개 + 너구리 */
   .home-intro {
-    margin: 0.5rem 0 var(--home-gap);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--home-gap);
+    margin: 0.25rem 0 calc(var(--home-gap) * 1.2);
   }
   .home-intro h1 {
     font-family: 'IBM Plex Sans KR', sans-serif;
@@ -74,68 +78,13 @@ layout: default
     color: var(--text-muted-color);
     font-size: 0.95rem;
     font-variant-numeric: tabular-nums;
-    margin: 0;
+    margin: 0 0 0.4rem;
   }
-
-  /* 연재 패널 */
-  .series-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--home-gap);
-    margin-bottom: calc(var(--home-gap) * 1.6);
-  }
-  .series-panel {
-    display: flex;
-    flex-direction: column;
-    color: inherit;
-    text-decoration: none;
-    border-bottom: none !important;
-  }
-  .series-panel:hover { color: inherit; }
-  .series-media {
-    aspect-ratio: 16 / 10;
-    border-radius: 6px;
-    overflow: hidden;
-    background: var(--img-bg);
-    margin-bottom: 1rem;
-  }
-  .series-media video,
-  .series-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .home-raccoon img {
     display: block;
-  }
-  .series-name {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    font-weight: 600;
-    font-size: 1.22rem;
-    line-height: 1.35;
-    color: var(--heading-color);
-    border-left: 4px solid var(--series-color);
-    padding-left: 0.65rem;
-    margin: 0 0 0.55rem;
-  }
-  .series-panel:hover .series-name span {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-  }
-  .series-summary {
-    color: var(--text-color);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin: 0 0 0.6rem;
-  }
-  .series-meta {
-    color: var(--text-muted-color);
-    font-size: 0.85rem;
-    margin: 0;
-  }
-  .series-meta strong {
-    color: var(--link-color);
-    font-weight: 600;
-    margin-left: 0.5rem;
+    width: clamp(188px, 26vw, 282px);
+    height: auto;
+    image-rendering: pixelated;
   }
 
   /* 글 목록 */
@@ -187,7 +136,7 @@ layout: default
   }
 
   @media (max-width: 767.98px) {
-    .series-grid { grid-template-columns: minmax(0, 1fr); }
+    .home-intro { flex-direction: column-reverse; align-items: flex-start; }
     .post-index li a {
       grid-template-columns: auto minmax(0, 1fr);
       row-gap: 0.2rem;
@@ -206,39 +155,14 @@ layout: default
       {% endif %}
     {% endfor %}
     <section class="home-intro">
-      <h1>iam-raccoon 의 프로젝트 기록</h1>
-      <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
-    </section>
-
-    <section class="series-grid" aria-label="연재">
-      {% for s in site.data.series %}
-        {% assign s_posts = site.categories[s.category] %}
-        {% if s.video and s_posts and s_posts.size > 0 %}
-          {% assign first = s_posts | last %}
-          {% assign latest = s_posts | first %}
-          {% assign y1 = first.date | date: '%Y' %}
-          {% assign y2 = latest.date | date: '%Y' %}
-          {% assign m1 = first.date | date: '%-m' %}
-          {% assign m2 = latest.date | date: '%-m' %}
-          <a class="series-panel" href="{{ first.url | relative_url }}" style="--series-color: {{ s.color }}">
-            <div class="series-media">
-              <video autoplay muted loop playsinline preload="metadata"
-                poster="{{ s.poster | relative_url }}" aria-label="{{ s.alt }}">
-                <source src="{{ s.video | relative_url }}" type="video/mp4">
-              </video>
-            </div>
-            <h2 class="series-name"><span>{{ s.name }}</span></h2>
-            <p class="series-summary">{{ s.summary }}</p>
-            <p class="series-meta">
-              {{ s_posts.size }}편,
-              {% if y1 == y2 and m1 == m2 %}{{ y1 }}년 {{ m1 }}월
-              {%- elsif y1 == y2 %}{{ y1 }}년 {{ m1 }}월 ~ {{ m2 }}월
-              {%- else %}{{ y1 }}년 {{ m1 }}월 ~ {{ y2 }}년 {{ m2 }}월{% endif %}
-              <strong>①편부터 읽기</strong>
-            </p>
-          </a>
-        {% endif %}
-      {% endfor %}
+      <div>
+        <h1>iam-raccoon 의 프로젝트 기록</h1>
+        <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
+      </div>
+      <picture class="home-raccoon">
+        <source srcset="{{ '/assets/img/home/raccoon-still.png' | relative_url }}" media="(prefers-reduced-motion: reduce)">
+        <img src="{{ '/assets/img/home/raccoon.gif' | relative_url }}" alt="모니터 앞에서 코드를 치는 픽셀 아트 너구리" width="376" height="240">
+      </picture>
     </section>
   {% endif %}
 
@@ -271,12 +195,3 @@ layout: default
   {% include post-paginator.html %}
 {% endif %}
 
-<script>
-  // 움직임 줄이기 설정이면 영상 대신 포스터만
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.series-media video').forEach(function (v) {
-      v.removeAttribute('autoplay');
-      v.pause();
-    });
-  }
-</script>
