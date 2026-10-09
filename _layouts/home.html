@@ -244,7 +244,7 @@ layout: default
       {% for post in posts %}
         {% assign series = nil %}
         {% for s in site.data.series %}
-          {% if post.categories[0] == s.category %}{% assign series = s %}{% endif %}
+          {% if post.categories contains s.category %}{% assign series = s %}{% endif %}
         {% endfor %}
         {% if series %}
           {% assign title = post.title | remove_first: series.prefix %}
