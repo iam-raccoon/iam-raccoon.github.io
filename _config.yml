@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: iam-raccoon # the main title
 
-tagline: 로봇 · 시뮬레이션 프로젝트 기록 # it will display as the subtitle
+tagline: "" # 사이드바 이름 밑 문구 — 비워 둠
 
 description: >- # used by seo meta and the atom feed
   로봇과 시뮬레이션 프로젝트를 하며 정한 것, 근거, 시행착오를 정리합니다.
@@ -147,7 +147,7 @@ assets:
 pwa:
   enabled: true # The option for PWA feature (installable)
   cache:
-    enabled: true # The option for PWA offline cache
+    enabled: false # 오프라인 캐시 끔 — 켜 두면 글을 고쳐도 예전 페이지가 보임. false 면 방문자 브라우저의 기존 서비스 워커도 해제됨
     # Paths defined here will be excluded from the PWA cache.
     # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.
