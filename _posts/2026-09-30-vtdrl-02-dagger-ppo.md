@@ -3,6 +3,9 @@ title: "VTD 강화학습 도심주행 ② 규칙 스택을 선생님으로 — D
 date: 2026-09-30 20:00:00 +0900
 categories: [VTD-Simulation, 강화학습 도심주행]
 tags: [강화학습, 모방학습, dagger, ppo, 자율주행]
+image:
+  path: /assets/img/vtdrl/dagger-light.png
+  alt: DAgger 라운드별 1단계 완주율
 ---
 
 > 학생이 운전하는 동안에도 규칙 스택이 **그림자처럼 계속 계산** 하게 해서, 매 프레임 선생님의 명령을 정답으로 모았다 (DAgger). [오프] 1단계 빈 길 완주 100 %, 98.5점. 그다음 PPO 로 선생님을 넘어 보려고 열세 번 돌렸는데, 출발점보다 나은 지점은 **한 번도** 없었다. 선생님이 이미 99점대라 넘을 여지가 거의 없었다.
@@ -33,6 +36,10 @@ for step in range(max_steps):
 ```
 
 누가 운전할지는 β 로 정한다. 라운드마다 1.0 → 0.5 → 0.25 → 0.1 → 0 으로 학생 몫을 늘렸다.
+
+![DAgger 라운드별 1단계 완주율](/assets/img/vtdrl/dagger-light.png){: .light }
+![DAgger 라운드별 1단계 완주율](/assets/img/vtdrl/dagger-dark.png){: .dark }
+_[오프] 학생 몫 (1 − β) 을 늘릴수록 완주율이 올라 라운드 4 에서 100 %_
 
 | [오프] 라운드 | 1단계 완주 |
 |---|---:|

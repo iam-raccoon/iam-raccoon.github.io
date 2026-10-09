@@ -3,6 +3,9 @@ title: "VTD 강화학습 도심주행 ④ 감속 곡선형 보상 — 적색 · 
 date: 2026-10-06 20:00:00 +0900
 categories: [VTD-Simulation, 강화학습 도심주행]
 tags: [강화학습, 보상설계, ppo, 자율주행]
+image:
+  path: /assets/img/vtdrl/red-light.png
+  alt: 완주 판당 적색 중대 위반
 ---
 
 > 완주는 따라잡았지만 학생은 완주한 판마다 **적색 중대 3.63건** (선생님 0.09) 을 받고 있었다. 벌을 5배 · 10배로 키워도 그대로였다. "끝까지 서 보지 않는 정책" 에게는 벌이 줄어드는 방향이 없기 때문이다. 정지선까지 **설 수 있는 속도를 넘은 만큼** 매 걸음 벌을 주는 감속 곡선형 보상으로 바꿨고, 같은 방식으로 차로와 장애물도 고쳐 [오프] 새 시험 창 완주 포함 점수를 93.6 까지 올렸다.
@@ -41,6 +44,10 @@ def red_excess(red, decel: float) -> float:
     v_ok = math.sqrt(2.0 * decel * max(gap - RED_STOP_TARGET, 0.0))
     return max(0.0, float(v) - v_ok)
 ```
+
+![완주 판당 적색 중대 위반](/assets/img/vtdrl/red-light.png){: .light }
+![완주 판당 적색 중대 위반](/assets/img/vtdrl/red-dark.png){: .dark }
+_[오프] 감속 곡선형 벌로 3.63 → 1.88건. 선생님은 0.09건_
 
 | [오프] 계수 | 적색 중대 (완주 판당) |
 |---|---:|
