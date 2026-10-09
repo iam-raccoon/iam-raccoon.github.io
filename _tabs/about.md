@@ -25,6 +25,3 @@ iam-raccoon 의 프로젝트 기록입니다. 프로젝트마다 연재로 묶�
 - 시뮬 결과는 조건과 시행 횟수를 같이 적습니다
 - 틀렸던 것도 지우지 않고 남깁니다
 
-## 그림 출처
-
-- 메인 화면 너구리 : [Microsoft Fluent Emoji](https://github.com/microsoft/fluentui-emoji) (MIT)
