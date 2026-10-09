@@ -80,11 +80,15 @@ layout: default
     font-variant-numeric: tabular-nums;
     margin: 0 0 0.4rem;
   }
-  .home-raccoon img {
-    display: block;
+  .home-raccoon {
+    flex-shrink: 0;
     width: clamp(188px, 26vw, 282px);
-    height: auto;
+    aspect-ratio: 376 / 240;
+    background: url("{{ '/assets/img/home/raccoon.gif' | relative_url }}") center / contain no-repeat;
     image-rendering: pixelated;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-raccoon { background-image: url("{{ '/assets/img/home/raccoon-still.png' | relative_url }}"); }
   }
 
   /* 글 목록 */
@@ -159,10 +163,7 @@ layout: default
         <h1>iam-raccoon 의 프로젝트 기록</h1>
         <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
       </div>
-      <picture class="home-raccoon">
-        <source srcset="{{ '/assets/img/home/raccoon-still.png' | relative_url }}" media="(prefers-reduced-motion: reduce)">
-        <img src="{{ '/assets/img/home/raccoon.gif' | relative_url }}" alt="모니터 앞에서 코드를 치는 픽셀 아트 너구리" width="376" height="240">
-      </picture>
+      <div class="home-raccoon" role="img" aria-label="모니터 앞에서 코드를 치는 픽셀 아트 너구리"></div>
     </section>
   {% endif %}
 
