@@ -22,3 +22,22 @@
   poster: /assets/img/home/hlfma-poster.jpg
   alt: VTD 시뮬레이터에서 차가 차로 위 타이어 더미를 옆 차로로 옮겨 피하는 장면
   color: "#e3c21a"
+
+# 아래는 패널 영상이 없어 메인 화면 글 목록 표시 (색 막대 · 짧은 제목) 만 쓰는 연재
+- name: VTD 강화학습 도심주행
+  short: VTD 강화학습
+  category: 강화학습 도심주행
+  prefix: "VTD 강화학습 도심주행 "
+  color: "#2a9d8f"
+
+- name: UGV 구조수색 로봇
+  short: UGV
+  category: UGV 구조수색 로봇
+  prefix: "UGV 구조수색 로봇 "
+  color: "#4a7bd0"
+
+- name: 로봇항공기경연대회 VTOL
+  short: VTOL
+  category: 로봇항공기경연대회 VTOL
+  prefix: "로봇항공기경연대회 VTOL "
+  color: "#8e5bd6"
