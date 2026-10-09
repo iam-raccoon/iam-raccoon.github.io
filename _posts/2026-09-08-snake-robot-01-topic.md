@@ -3,6 +3,9 @@ title: "뱀 로봇 설계 ① 굴착하기 전에 먼저 들어가 보는 로봇
 date: 2026-09-08 20:00:00 +0900
 categories: [뱀 로봇 설계, 설계 과제]
 tags: [뱀로봇, 재난로봇, 선행연구, v프로세스]
+image:
+  path: /assets/img/snake/cover-01.jpg
+  alt: MuJoCo 에서 턱을 내려가는 뱀 로봇
 math: true
 ---
 
