@@ -5,7 +5,7 @@ categories: [VTD-Simulation, HL-FMA 자율주행 경진대회]
 tags: [자율주행, vtd, 시뮬레이션, 대회, hlfma]
 image:
   path: /assets/img/hlfma/cover-01.jpg
-  alt: 제어기가 본 장면과 VTD 화면 — 적색 신호 정지
+  alt: 제어기가 본 장면과 VTD 화면, 적색 신호 정지
 ---
 
 > 2026 HL-FMA 자율주행 경진대회 iVH 시뮬레이션 부문에 나갔다. 시뮬레이터(VTD 2025.2)가 주는 건 위치, 물체 30개, 신호 하나뿐이고 차선, 정지선, 내 속도, 물체 종류는 없다. 경로는 당일 받는 좌표 CSV 한 장이다. 그래서 없는 정보를 어디서 구할지부터 정리했다. 결과는 완주, 476/500점이다([⑥편]({% post_url 2026-09-12-hlfma-06-race %})).

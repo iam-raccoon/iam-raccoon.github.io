@@ -5,7 +5,7 @@ categories: [UGV 구조수색 로봇]
 tags: [ugv, ros2, gazebo, 구조로봇, yolo, 열화상]
 image:
   path: /assets/img/ugv/gazebo-world-cover.jpg
-  alt: Gazebo 재난 건물 맵 안의 6륜 UGV 와 조난자 모델
+  alt: Gazebo 재난 건물 맵 안의 6륜 UGV와 조난자 모델
 ---
 
 > 6륜 UGV가 재난 건물을 스스로 돌며 조난자를 찾아 상태를 분류(트리아지)하고, 열화상으로 화재 위치를 찍는 시뮬레이션이다 (ROS 2 Humble + Gazebo Harmonic). 첫 주에는 Gazebo 버전을 옮기다가 로봇이 4.5 m 공중으로 날아갔고, 조난자 위치가 2~3 m씩 틀렸다. 원인은 조용히 무시되는 설정 한 줄과 부호 하나였다.
