@@ -104,4 +104,4 @@ def compensate_steer(steer: float, speed: float, k_us: float) -> float:
 
 다음에는 오프라인 세계에 옆 가속도 한계, K ≈ 0.016의 옆 방향 응답, 신호 상태 5와 6을 넣고 다시 학습한 뒤 VTD에서 다시 잴 생각이다. 정지차 회피는 순수 강화학습으로는 막혀 있어서, 차로를 바꿀지 결정하는 것만 규칙에 맡기는 하이브리드가 다음 후보다.
 
-← [④편]({% post_url 2026-10-06-vtdrl-04-shaping %}) · 처음부터: [①편]({% post_url 2026-09-16-vtdrl-01-offline-world %})
+← [④편]({% post_url 2026-10-06-vtdrl-04-shaping %}) · 처음부터: [①편]({% post_url 2026-09-16-vtdrl-01-offline-world %}) · 다음: [⑥편 오프라인 차를 고쳐 다시 학습하기]({% post_url 2026-10-10-vtdrl-06-retrain %}) →
