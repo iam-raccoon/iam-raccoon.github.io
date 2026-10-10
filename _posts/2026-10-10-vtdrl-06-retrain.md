@@ -1,6 +1,6 @@
 ---
 title: "VTD 강화학습 도심주행 ⑥ 오프라인 차를 VTD처럼 고쳐 다시 학습하기"
-date: 2026-10-10 20:00:00 +0900
+date: 2026-10-10 18:00:00 +0900
 categories: [VTD-Simulation, 강화학습 도심주행]
 tags: [강화학습, 자율주행, vtd, ppo, 차량동역학]
 image:
