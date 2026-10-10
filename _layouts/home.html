@@ -80,12 +80,24 @@ layout: default
     background: var(--main-border-color);
   }
   .racc {
+    position: relative;
     aspect-ratio: 1549 / 1192;
     background: url("{{ '/assets/img/home/raccoon-7-bin.webp' | relative_url }}") center bottom / contain no-repeat;
     -webkit-tap-highlight-color: transparent;
   }
-  /* 이스터 에그 : 너구리를 10번 누르면 맥주 너구리 (다시 10번이면 원래대로) */
-  .racc.beer { background-image: url("{{ '/assets/img/home/raccoon-beer-cut.webp' | relative_url }}"); }
+  /* 이스터 에그 : 너구리를 10번 누르면 맥주 너구리, 20초 뒤 (또는 다시 10번) 원래대로.
+     세로로 긴 사진이라 상자보다 크게, 바닥선에 발을 맞춰 위로 솟게 그린다 */
+  .racc.beer { background-image: none; }
+  .racc.beer::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 165%;
+    aspect-ratio: 348 / 560;
+    transform: translateX(-50%);
+    background: url("{{ '/assets/img/home/raccoon-beer-cut.webp' | relative_url }}") center bottom / contain no-repeat;
+  }
   .racc.pop { animation: racc-pop 0.35s ease-out; }
   @keyframes racc-pop {
     40% { transform: scale(1.06) translateY(-4px); }
@@ -93,6 +105,8 @@ layout: default
   @media (max-width: 575.98px) {
     .stage { grid-template-columns: 1fr; }
     .racc { width: 72%; }
+    /* 한 줄로 쌓이는 화면 : 솟은 머리가 위 메뉴를 덮지 않게 자리를 낸다 */
+    .stage:has(.racc.beer) { padding-top: 34%; }
   }
   .slide {
     display: flex;
@@ -247,13 +261,20 @@ layout: default
         const r = document.querySelector('.stage .racc');
         if (!r) return;
         let n = 0;
-        r.addEventListener('click', () => {
-          if (++n % 10) return;
-          const beer = r.classList.toggle('beer');
+        let back = null;
+        const show = (beer) => {
+          r.classList.toggle('beer', beer);
           r.setAttribute('aria-label', beer ? '맥주 캔을 끌어안은 너구리' : '쓰레기통에서 고개를 내민 너구리');
           r.classList.remove('pop');
           void r.offsetWidth;
           r.classList.add('pop');
+          clearTimeout(back);
+          n = 0;
+          if (beer) back = setTimeout(() => show(false), 20000);
+        };
+        r.addEventListener('click', () => {
+          if (++n % 10) return;
+          show(!r.classList.contains('beer'));
         });
       })();
     </script>
