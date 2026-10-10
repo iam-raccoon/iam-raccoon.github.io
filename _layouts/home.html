@@ -95,25 +95,34 @@ layout: default
     border-radius: 4px;
     background: var(--main-border-color);
   }
-  .ck-photo {
+  .ck-polaroid {
     flex: none;
-    width: clamp(160px, 22vw, 205px);
-    aspect-ratio: 398 / 640;
-    margin-right: -62px;          /* 잘린 꼬리 끝이 카드 뒤로 숨게 */
-    z-index: 0;
-    background: url("{{ '/assets/img/home/raccoon-beer.webp' | relative_url }}") center bottom / contain no-repeat;
-    filter: drop-shadow(0 10px 14px rgba(15, 22, 34, 0.18));
-    transform-origin: 30% 100%;
-    animation: ck-breathe 4.5s ease-in-out infinite;
+    width: clamp(170px, 23vw, 220px);
+    margin: 0 -26px 10px 0;
+    padding: 9px 9px 0;
+    background: #fdfdfb;
+    border-radius: 3px;
+    box-shadow: 0 10px 26px rgba(15, 22, 34, 0.22), 0 1px 3px rgba(15, 22, 34, 0.12);
+    transform: rotate(-5deg);
+    transition: transform 0.25s ease;
+    z-index: 2;
   }
-  @keyframes ck-breathe { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-1.2deg); } }
+  .ck-polaroid:hover { transform: rotate(-1deg) translateY(-3px); }
+  .ck-polaroid .ph {
+    aspect-ratio: 500 / 694;
+    background: #222 url("{{ '/assets/img/home/raccoon-beer-photo.webp' | relative_url }}") center / cover no-repeat;
+  }
+  .ck-polaroid figcaption {
+    font-family: 'Gaegu', 'IBM Plex Sans KR', sans-serif;
+    font-size: 1.15rem;
+    color: #4a4a48;
+    text-align: center;
+    padding: 0.35rem 0 0.55rem;
+  }
   @media (max-width: 575.98px) {
     .term-wrap { flex-direction: column; align-items: center; }
-    .ck-photo {
-      width: 120px; margin: 0 0 -26px;
-      -webkit-mask-image: linear-gradient(to left, transparent 0, #000 22%);
-              mask-image: linear-gradient(to left, transparent 0, #000 22%);
-    }
+    .ck-polaroid { width: 140px; margin: 0 0 -18px; transform: rotate(-4deg); }
+    .ck-polaroid figcaption { font-size: 1rem; padding: 0.2rem 0 0.4rem; }
   }
   .term {
     position: relative;
@@ -170,7 +179,8 @@ layout: default
   .term .cursor { color: #6ee7a0; animation: rc-cursor 1s steps(1) infinite; }
   @keyframes rc-cursor { 50% { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) {
-    .ck-photo, .term .cursor { animation: none !important; }
+    .term .cursor { animation: none !important; }
+    .ck-polaroid { transition: none; }
   }
 
   /* 글 목록 */
@@ -243,8 +253,11 @@ layout: default
       <h1>iam-raccoon 의 프로젝트 기록</h1>
       <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
       <div class="term-wrap">
-        <!-- 너구리 사진 : 출처 미상 인터넷 사진 (원작자 요청 시 내림) — 배경을 지워 씀 -->
-        <div class="ck-photo" role="img" aria-label="맥주 캔을 끌어안고 늘어진 너구리"></div>
+        <!-- 너구리 사진 : 출처 미상 인터넷 사진 (원작자 요청 시 내림) -->
+        <figure class="ck-polaroid">
+          <div class="ph" role="img" aria-label="맥주 캔을 끌어안고 늘어진 너구리"></div>
+          <figcaption>오늘도 디버깅 중</figcaption>
+        </figure>
         <div class="term">
           <div class="term-bar">
             <i style="background:#ef6a5a"></i><i style="background:#f2bd4b"></i><i style="background:#5bc56a"></i>
