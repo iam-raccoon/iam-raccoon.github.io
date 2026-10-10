@@ -59,7 +59,7 @@ layout: default
   }
 
   /* 소개 : 오린 실물 너구리 + 발표 슬라이드 (연재 목록)
-     peek = 슬라이드 뒤에서 고개를 내밂 (7), side = 슬라이드 옆에 서 있음 (11) */
+     peek = 슬라이드 뒤에서 고개를 내밂 (7), side = 슬라이드 옆에 서 있음 (11), side bin = 쓰레기통째 옆에 (7) */
   .stage {
     --rw: clamp(170px, 24vw, 230px);
     position: relative;
@@ -98,6 +98,12 @@ layout: default
   .stage.side .racc {
     aspect-ratio: 620 / 461;
     background-image: url("{{ '/assets/img/home/raccoon-11-cut.webp' | relative_url }}");
+  }
+  /* bin = 쓰레기통째 슬라이드 옆에 섬 (7) */
+  .stage.side.bin { grid-template-columns: minmax(170px, 0.52fr) minmax(0, 1fr); }
+  .stage.side.bin .racc {
+    aspect-ratio: 1549 / 1192;
+    background-image: url("{{ '/assets/img/home/raccoon-7-bin.webp' | relative_url }}");
   }
   @media (max-width: 575.98px) {
     .stage.side { grid-template-columns: 1fr; }
@@ -232,9 +238,9 @@ layout: default
         {% assign n_series = n_series | plus: 1 %}
       {% endif %}
     {% endfor %}
-    <section class="stage peek">
+    <section class="stage side bin">
       <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0, 배경을 지워 씀 (출처는 About) -->
-      <div class="racc" role="img" aria-label="슬라이드 위로 고개를 내민 너구리"></div>
+      <div class="racc" role="img" aria-label="쓰레기통에서 고개를 내민 너구리"></div>
       <div class="slide">
         <h1>iam-raccoon 의 프로젝트 기록</h1>
         <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
