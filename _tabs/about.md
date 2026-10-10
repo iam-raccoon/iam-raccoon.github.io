@@ -27,4 +27,4 @@ iam-raccoon 의 프로젝트 기록입니다. 프로젝트마다 연재로 묶�
 
 ## 그림 출처
 
-- 메인 화면 너구리 사진 : 출처를 알 수 없는 인터넷 사진. 원작자께서 알려 주시면 출처를 적거나 내리겠습니다
+- 메인 화면 너구리 사진 : [Raccoon in a garbage can in Prospect Park](https://commons.wikimedia.org/wiki/File:Raccoon_in_a_garbage_can_in_Prospect_Park_%2872564%29.jpg) — Rhododendrites, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), 잘라서 씀

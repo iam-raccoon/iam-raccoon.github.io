@@ -4,7 +4,7 @@ layout: default
 
 {% comment %}
   Chirpy v7.6.0 의 _layouts/home.html 을 바꾼 것.
-  첫 쪽 : 소개 + 연재 패널 (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
+  첫 쪽 : 발표자 카메라(너구리) + 발표 슬라이드(연재 목록) (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
   고정 글 · 쪽 나누기 계산은 원본 그대로.
 {% endcomment %}
 
@@ -58,129 +58,97 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 : 가운데 제목 + 터미널 카드 (위로 너구리가 빼꼼) */
-  .home-intro {
-    text-align: center;
-    margin: 0.25rem auto calc(var(--home-gap) * 1.4);
+  /* 소개 : 왼쪽 발표자 카메라 (실물 너구리) + 오른쪽 발표 슬라이드 (연재 목록) */
+  .stage {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
+    gap: clamp(12px, 1.8vw, 20px);
+    max-width: 840px;
+    margin: 0.25rem auto calc(var(--home-gap) * 1.6);
   }
-  .home-intro h1 {
+  .cam {
+    position: relative;
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #2b2f2a url("{{ '/assets/img/home/raccoon-7.webp' | relative_url }}") center / cover no-repeat;
+    box-shadow: 0 10px 28px rgba(15, 22, 34, 0.18);
+  }
+  .cam figcaption {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    padding: 1px 8px;
+    border-radius: 6px;
+    background: rgba(12, 14, 18, 0.62);
+    color: #f3f4f6;
+    font-size: 0.75rem;
+  }
+  .slide {
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg, var(--main-bg));
+    border: 1px solid var(--main-border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(15, 22, 34, 0.1);
+    padding: clamp(1.1rem, 0.7rem + 1.8vw, 2rem) clamp(1.2rem, 0.8rem + 2vw, 2.4rem);
+  }
+  .slide h1 {
     font-family: 'IBM Plex Sans KR', sans-serif;
     font-weight: 600;
-    font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.8rem);
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
     line-height: 1.35;
     color: var(--heading-color);
-    margin: 0 0 0.35rem;
+    margin: 0 0 0.3rem;
   }
-  .home-intro > p {
+  .slide > p {
     color: var(--text-muted-color);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-variant-numeric: tabular-nums;
-    margin: 0;
+    margin: 0 0 1.1rem;
   }
-  .term-wrap {
+  .slide ol { list-style: none; padding: 0; margin: auto 0 0; }
+  .slide li + li { border-top: 1px dashed var(--main-border-color); }
+  .slide li a {
     position: relative;
-    max-width: 720px;
-    margin: 1.4rem auto 0;
-    display: flex;
-    align-items: flex-end;
-  }
-  /* 책상선 */
-  .term-wrap::after {
-    content: "";
-    position: absolute;
-    left: 2%;
-    right: 2%;
-    bottom: -8px;
-    height: 8px;
-    border-radius: 4px;
-    background: var(--main-border-color);
-  }
-  .ck-polaroid {
-    flex: none;
-    width: clamp(170px, 23vw, 220px);
-    margin: 0 -2px 10px 0;
-    padding: 9px 9px 0;
-    background: #fdfdfb;
-    border-radius: 3px;
-    box-shadow: 0 10px 26px rgba(15, 22, 34, 0.22), 0 1px 3px rgba(15, 22, 34, 0.12);
-    transform: rotate(-5deg);
-    transition: transform 0.25s ease;
-    z-index: 2;
-  }
-  .ck-polaroid:hover { transform: rotate(-1deg) translateY(-3px); }
-  .ck-polaroid .ph {
-    aspect-ratio: 500 / 694;
-    background: #222 url("{{ '/assets/img/home/raccoon-beer-photo.webp' | relative_url }}") center / cover no-repeat;
-  }
-  .ck-polaroid figcaption {
-    font-family: 'Gaegu', 'IBM Plex Sans KR', sans-serif;
-    font-size: 1.15rem;
-    color: #4a4a48;
-    text-align: center;
-    padding: 0.35rem 0 0.55rem;
-  }
-  @media (max-width: 575.98px) {
-    .term-wrap { flex-direction: column; align-items: center; }
-    .ck-polaroid { width: 132px; margin: 0 0 -4px; transform: rotate(-4deg); }
-    .ck-polaroid figcaption { font-size: 1rem; padding: 0.2rem 0 0.4rem; }
-  }
-  .term {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    min-width: 0;
-    width: 100%;
-    background: #141b27;
-    border-radius: 12px;
-    box-shadow: 0 12px 32px rgba(15, 22, 34, 0.22);
-    text-align: left;
-    overflow: hidden;
-  }
-  .term-bar {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 10px 14px;
-    background: #1c2433;
-  }
-  .term-bar i { width: 11px; height: 11px; border-radius: 50%; }
-  .term-bar em {
-    flex: 1;
-    text-align: center;
-    font-style: normal;
-    font-size: 0.78rem;
-    color: #7b8698;
-    margin-right: 39px;
-  }
-  .term-body { padding: 12px 14px 14px; }
-  .term-line {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.88rem;
-    color: #9fb3cf;
-    padding: 0 8px;
-  }
-  .term ul { list-style: none; padding: 0; margin: 6px 0 8px; }
-  .term li a {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.42rem 8px;
-    border-radius: 6px;
-    color: #e6edf7;
+    gap: 0.75rem;
+    padding: 0.55rem 0.2rem;
+    color: var(--text-color);
     text-decoration: none;
     border-bottom: none !important;
-    transition: background 0.15s;
   }
-  .term li a:hover, .term li a:focus-visible { background: #233047; color: #fff; }
-  .term li a:focus-visible { outline: 2px solid #7fb0ff; outline-offset: 0; }
-  .term li i { flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--series-color); }
-  .term li b { flex: 1; font-weight: 500; font-size: 0.98rem; }
-  .term li span { color: #7b8698; font-size: 0.82rem; font-variant-numeric: tabular-nums; }
-  .term .cursor { color: #6ee7a0; animation: rc-cursor 1s steps(1) infinite; }
-  @keyframes rc-cursor { 50% { opacity: 0; } }
+  .slide li i { flex: none; width: 4px; height: 1.1em; border-radius: 2px; background: var(--series-color); }
+  .slide li b { flex: 1; font-weight: 500; font-size: 1rem; }
+  .slide li span { color: var(--text-muted-color); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+  .slide li a:hover b, .slide li a:focus-visible b { color: var(--link-color); }
+  /* 레이저 포인터 : 가리킨 항목 옆에 빨간 점 */
+  .slide li a::before {
+    content: "";
+    position: absolute;
+    left: -1.05rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ff2b2b;
+    box-shadow: 0 0 0 3px rgba(255, 43, 43, 0.22), 0 0 14px 4px rgba(255, 43, 43, 0.55);
+    opacity: 0;
+    transform: translateY(-50%) scale(0.4);
+    transition: opacity 0.12s, transform 0.12s;
+    pointer-events: none;
+  }
+  .slide li a:hover::before, .slide li a:focus-visible::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
   @media (prefers-reduced-motion: reduce) {
-    .term .cursor { animation: none !important; }
-    .ck-polaroid { transition: none; }
+    .slide li a::before { transition: none; }
+  }
+  @media (max-width: 575.98px) {
+    .stage { grid-template-columns: 1fr; }
+    .cam { height: 190px; background-position: center 35%; }
   }
 
   /* 글 목록 */
@@ -249,34 +217,24 @@ layout: default
         {% assign n_series = n_series | plus: 1 %}
       {% endif %}
     {% endfor %}
-    <section class="home-intro">
-      <h1>iam-raccoon 의 프로젝트 기록</h1>
-      <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
-      <div class="term-wrap">
-        <!-- 너구리 사진 : 출처 미상 인터넷 사진 (원작자 요청 시 내림) -->
-        <figure class="ck-polaroid">
-          <div class="ph" role="img" aria-label="맥주 캔을 끌어안고 늘어진 너구리"></div>
-        </figure>
-        <div class="term">
-          <div class="term-bar">
-            <i style="background:#ef6a5a"></i><i style="background:#f2bd4b"></i><i style="background:#5bc56a"></i>
-            <em>iam-raccoon — ~/projects</em>
-          </div>
-          <div class="term-body">
-            <div class="term-line">$ ls ~/projects</div>
-            <ul aria-label="연재">
-              {% for s in site.data.series %}
-                {% assign s_posts = site.categories[s.category] %}
-                {% if s_posts and s_posts.size > 0 %}
-                  {% assign first = s_posts | last %}
-                  {% assign start_url = s.start | default: first.url %}
-                  <li><a href="{{ start_url | relative_url }}" style="--series-color: {{ s.color }}"><i></i><b>{{ s.name }}</b><span>{{ s_posts.size }}편</span></a></li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-            <div class="term-line">$ <span class="cursor">▍</span></div>
-          </div>
-        </div>
+    <section class="stage">
+      <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0 (출처는 About) -->
+      <figure class="cam" role="img" aria-label="쓰레기통에서 고개를 내민 너구리">
+        <figcaption>iam-raccoon</figcaption>
+      </figure>
+      <div class="slide">
+        <h1>iam-raccoon 의 프로젝트 기록</h1>
+        <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
+        <ol aria-label="연재">
+          {% for s in site.data.series %}
+            {% assign s_posts = site.categories[s.category] %}
+            {% if s_posts and s_posts.size > 0 %}
+              {% assign first = s_posts | last %}
+              {% assign start_url = s.start | default: first.url %}
+              <li><a href="{{ start_url | relative_url }}" style="--series-color: {{ s.color }}"><i></i><b>{{ s.name }}</b><span>{{ s_posts.size }}편</span></a></li>
+            {% endif %}
+          {% endfor %}
+        </ol>
       </div>
     </section>
   {% endif %}
