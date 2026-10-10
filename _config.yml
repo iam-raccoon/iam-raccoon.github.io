@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: iam-raccoon # the main title
 
-tagline: "" # 사이드바 이름 밑 문구 — 비워 둠
+tagline: "Robotics, RL, Simulation" # 사이드바 이름 밑 한 줄 소개 (관심 분야)
 
 description: >- # used by seo meta and the atom feed
   로봇과 시뮬레이션 프로젝트를 하며 정한 것, 근거, 시행착오를 정리합니다.

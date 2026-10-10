@@ -4,6 +4,27 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@600&display=swap">
 {% endif %}
 <style>
-  /* 사이드바 이름 밑 문구는 쓰지 않는다 (tagline 비움) — 빈 자리도 숨김 */
-  #sidebar .site-subtitle { display: none; }
+  /* 사이드바 : 본문과 구분되게 회색으로 (밝은 모드는 본문보다 한 톤 짙게, 다크 모드는 한 톤 밝게) */
+  html:root:not([data-bs-theme=dark]) {
+    --sidebar-bg: #e9ebee;
+    --sidebar-border-color: #dcdfe3;
+    --sidebar-hover-bg: rgb(0 0 0 / 6%);
+    --sidebar-btn-bg: #f7f8f9;
+  }
+  @media (prefers-color-scheme: dark) {
+    html:root:not([data-bs-theme]) {
+      --sidebar-bg: #2a2b30;
+      --sidebar-border-color: #34353a;
+      --sidebar-hover-bg: rgb(255 255 255 / 7%);
+      --sidebar-btn-bg: #33343a;
+    }
+  }
+  html:root[data-bs-theme=dark] {
+    --sidebar-bg: #2a2b30;
+    --sidebar-border-color: #34353a;
+    --sidebar-hover-bg: rgb(255 255 255 / 7%);
+    --sidebar-btn-bg: #33343a;
+  }
+  /* 이름 밑 한 줄 소개 : 기본 높이(3rem)가 남아 메뉴가 멀어 보이지 않게 */
+  #sidebar .site-subtitle { height: auto; margin-bottom: 0.5rem; }
 </style>
