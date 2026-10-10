@@ -13,6 +13,8 @@ image:
 
 코드: [iam-raccoon/vtd-rl-urban-driving](https://github.com/iam-raccoon/vtd-rl-urban-driving) (규칙 스택 서브모듈은 비공개)
 
+코드 작성과 실험 반복은 AI 코딩 도구(Claude Code)와 같이 했다. 방향을 정하고 결과를 검증하는 건 직접 했다.
+
 > 이 연재의 숫자에는 **[오프]**(직접 만든 오프라인 세계)와 **[VTD]**(실제 VTD 2025.2 주행)를 붙인다. 둘은 다른 세계라 섞어 읽으면 안 된다([⑤편]({% post_url 2026-10-07-vtdrl-05-vtd-validation %})).
 {: .prompt-warning }
 
