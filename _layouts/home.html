@@ -100,14 +100,15 @@ layout: default
     background-image: url("{{ '/assets/img/home/raccoon-11-cut.webp' | relative_url }}");
   }
   /* bin = 쓰레기통째 슬라이드 옆에 섬 (7) */
-  .stage.side.bin { grid-template-columns: minmax(170px, 0.52fr) minmax(0, 1fr); }
+  .stage.side.bin { grid-template-columns: minmax(190px, 0.62fr) minmax(0, 1fr); }
   .stage.side.bin .racc {
     aspect-ratio: 1549 / 1192;
     background-image: url("{{ '/assets/img/home/raccoon-7-bin.webp' | relative_url }}");
   }
   @media (max-width: 575.98px) {
-    .stage.side { grid-template-columns: 1fr; }
+    .stage.side, .stage.side.bin { grid-template-columns: 1fr; }
     .stage.side .racc { width: 62%; }
+    .stage.side.bin .racc { width: 72%; }
   }
   .slide {
     display: flex;
