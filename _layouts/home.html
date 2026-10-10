@@ -4,7 +4,7 @@ layout: default
 
 {% comment %}
   Chirpy v7.6.0 의 _layouts/home.html 을 바꾼 것.
-  첫 쪽 : 발표자 카메라(너구리) + 발표 슬라이드(연재 목록) (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
+  첫 쪽 : 오린 실물 너구리 + 발표 슬라이드(연재 목록) (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
   고정 글 · 쪽 나누기 계산은 원본 그대로.
 {% endcomment %}
 
@@ -58,31 +58,50 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 : 왼쪽 발표자 카메라 (실물 너구리) + 오른쪽 발표 슬라이드 (연재 목록) */
+  /* 소개 : 오린 실물 너구리 + 발표 슬라이드 (연재 목록)
+     peek = 슬라이드 뒤에서 고개를 내밂 (7), side = 슬라이드 옆에 서 있음 (11) */
   .stage {
-    display: grid;
-    grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1fr);
-    gap: clamp(12px, 1.8vw, 20px);
-    max-width: 840px;
+    --rw: clamp(170px, 24vw, 230px);
+    position: relative;
+    max-width: 800px;
     margin: 0.25rem auto calc(var(--home-gap) * 1.6);
   }
-  .cam {
-    position: relative;
-    margin: 0;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #2b2f2a url("{{ '/assets/img/home/raccoon-7.webp' | relative_url }}") center / cover no-repeat;
-    box-shadow: 0 10px 28px rgba(15, 22, 34, 0.18);
-  }
-  .cam figcaption {
+  .racc { background: center bottom / contain no-repeat; }
+  .stage.peek { padding-top: calc(var(--rw) * 0.6); }
+  .stage.peek .racc {
     position: absolute;
-    left: 8px;
-    bottom: 8px;
-    padding: 1px 8px;
-    border-radius: 6px;
-    background: rgba(12, 14, 18, 0.62);
-    color: #f3f4f6;
-    font-size: 0.75rem;
+    top: 0;
+    right: 9%;
+    width: var(--rw);
+    aspect-ratio: 520 / 373;
+    background-image: url("{{ '/assets/img/home/raccoon-7-cut.webp' | relative_url }}");
+  }
+  .stage.peek .slide { position: relative; z-index: 1; }
+  .stage.side {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.4fr) minmax(0, 1fr);
+    align-items: end;
+    gap: clamp(8px, 1.4vw, 16px);
+    padding-bottom: 6px;
+  }
+  /* 바닥선 : 너구리 발과 슬라이드가 같은 바닥에 선다 */
+  .stage.side::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--main-border-color);
+  }
+  .stage.side .racc {
+    aspect-ratio: 620 / 461;
+    background-image: url("{{ '/assets/img/home/raccoon-11-cut.webp' | relative_url }}");
+  }
+  @media (max-width: 575.98px) {
+    .stage.side { grid-template-columns: 1fr; }
+    .stage.side .racc { width: 62%; }
   }
   .slide {
     display: flex;
@@ -148,7 +167,67 @@ layout: default
   }
   @media (max-width: 575.98px) {
     .stage { grid-template-columns: 1fr; }
-    .cam { height: 190px; background-position: center 35%; }
+    .slide {
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg, var(--main-bg));
+    border: 1px solid var(--main-border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(15, 22, 34, 0.1);
+    padding: clamp(1.1rem, 0.7rem + 1.8vw, 2rem) clamp(1.2rem, 0.8rem + 2vw, 2.4rem);
+  }
+  .slide h1 {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
+    line-height: 1.35;
+    color: var(--heading-color);
+    margin: 0 0 0.3rem;
+  }
+  .slide > p {
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 1.1rem;
+  }
+  .slide ol { list-style: none; padding: 0; margin: auto 0 0; }
+  .slide li + li { border-top: 1px dashed var(--main-border-color); }
+  .slide li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.2rem;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: none !important;
+  }
+  .slide li i { flex: none; width: 4px; height: 1.1em; border-radius: 2px; background: var(--series-color); }
+  .slide li b { flex: 1; font-weight: 500; font-size: 1rem; }
+  .slide li span { color: var(--text-muted-color); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+  .slide li a:hover b, .slide li a:focus-visible b { color: var(--link-color); }
+  /* 레이저 포인터 : 가리킨 항목 옆에 빨간 점 */
+  .slide li a::before {
+    content: "";
+    position: absolute;
+    left: -1.05rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ff2b2b;
+    box-shadow: 0 0 0 3px rgba(255, 43, 43, 0.22), 0 0 14px 4px rgba(255, 43, 43, 0.55);
+    opacity: 0;
+    transform: translateY(-50%) scale(0.4);
+    transition: opacity 0.12s, transform 0.12s;
+    pointer-events: none;
+  }
+  .slide li a:hover::before, .slide li a:focus-visible::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .slide li a::before { transition: none; }
   }
 
   /* 글 목록 */
@@ -217,11 +296,9 @@ layout: default
         {% assign n_series = n_series | plus: 1 %}
       {% endif %}
     {% endfor %}
-    <section class="stage">
-      <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0 (출처는 About) -->
-      <figure class="cam" role="img" aria-label="쓰레기통에서 고개를 내민 너구리">
-        <figcaption>iam-raccoon</figcaption>
-      </figure>
+    <section class="stage peek">
+      <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0, 배경을 지워 씀 (출처는 About) -->
+      <div class="racc" role="img" aria-label="슬라이드 위로 고개를 내민 너구리"></div>
       <div class="slide">
         <h1>iam-raccoon 의 프로젝트 기록</h1>
         <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
