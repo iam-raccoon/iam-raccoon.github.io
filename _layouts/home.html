@@ -4,7 +4,7 @@ layout: default
 
 {% comment %}
   Chirpy v7.6.0 의 _layouts/home.html 을 바꾼 것.
-  첫 쪽 : 소개 + 연재 패널 (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
+  첫 쪽 : 쓰레기통 너구리 + 발표 슬라이드(연재 목록) (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
   고정 글 · 쪽 나누기 계산은 원본 그대로.
 {% endcomment %}
 
@@ -58,84 +58,104 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 */
-  .home-intro {
-    margin: 0.5rem 0 var(--home-gap);
-  }
-  .home-intro h1 {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    font-weight: 600;
-    font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.8rem);
-    line-height: 1.35;
-    color: var(--heading-color);
-    margin: 0 0 0.35rem;
-  }
-  .home-intro p {
-    color: var(--text-muted-color);
-    font-size: 0.95rem;
-    font-variant-numeric: tabular-nums;
-    margin: 0;
-  }
-
-  /* 연재 패널 */
-  .series-grid {
+  /* 소개 : 쓰레기통째 오린 실물 너구리 + 발표 슬라이드 (연재 목록), 같은 바닥선에 선다 */
+  .stage {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--home-gap);
-    margin-bottom: calc(var(--home-gap) * 1.6);
+    grid-template-columns: minmax(190px, 0.62fr) minmax(0, 1fr);
+    align-items: end;
+    gap: clamp(8px, 1.4vw, 16px);
+    max-width: 800px;
+    margin: 0.25rem auto calc(var(--home-gap) * 1.6);
+    padding-bottom: 6px;
   }
-  .series-panel {
+  .stage::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--main-border-color);
+  }
+  .racc {
+    aspect-ratio: 1549 / 1192;
+    background: url("{{ '/assets/img/home/raccoon-7-bin.webp' | relative_url }}") center bottom / contain no-repeat;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* 이스터 에그 : 너구리를 10번 누르면 맥주 너구리 (다시 10번이면 원래대로) */
+  .racc.beer { background-image: url("{{ '/assets/img/home/raccoon-beer-cut.webp' | relative_url }}"); }
+  .racc.pop { animation: racc-pop 0.35s ease-out; }
+  @keyframes racc-pop {
+    40% { transform: scale(1.06) translateY(-4px); }
+  }
+  @media (max-width: 575.98px) {
+    .stage { grid-template-columns: 1fr; }
+    .racc { width: 72%; }
+  }
+  .slide {
     display: flex;
     flex-direction: column;
-    color: inherit;
+    background: var(--card-bg, var(--main-bg));
+    border: 1px solid var(--main-border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 28px rgba(15, 22, 34, 0.1);
+    padding: clamp(1.1rem, 0.7rem + 1.8vw, 2rem) clamp(1.2rem, 0.8rem + 2vw, 2.4rem);
+  }
+  .slide h1 {
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.35rem, 1.1rem + 0.9vw, 1.75rem);
+    line-height: 1.35;
+    color: var(--heading-color);
+    margin: 0 0 0.3rem;
+  }
+  .slide > p {
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+    margin: 0 0 1.1rem;
+  }
+  .slide ol { list-style: none; padding: 0; margin: auto 0 0; }
+  .slide li + li { border-top: 1px dashed var(--main-border-color); }
+  .slide li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.2rem;
+    color: var(--text-color);
     text-decoration: none;
     border-bottom: none !important;
   }
-  .series-panel:hover { color: inherit; }
-  .series-media {
-    aspect-ratio: 16 / 10;
-    border-radius: 6px;
-    overflow: hidden;
-    background: var(--img-bg);
-    margin-bottom: 1rem;
+  .slide li i { flex: none; width: 4px; height: 1.1em; border-radius: 2px; background: var(--series-color); }
+  .slide li b { flex: 1; font-weight: 500; font-size: 1rem; }
+  .slide li span { color: var(--text-muted-color); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+  .slide li a:hover b, .slide li a:focus-visible b { color: var(--link-color); }
+  /* 레이저 포인터 : 가리킨 항목 옆에 빨간 점 */
+  .slide li a::before {
+    content: "";
+    position: absolute;
+    left: -1.05rem;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ff2b2b;
+    box-shadow: 0 0 0 3px rgba(255, 43, 43, 0.22), 0 0 14px 4px rgba(255, 43, 43, 0.55);
+    opacity: 0;
+    transform: translateY(-50%) scale(0.4);
+    transition: opacity 0.12s, transform 0.12s;
+    pointer-events: none;
   }
-  .series-media video,
-  .series-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  .slide li a:hover::before, .slide li a:focus-visible::before {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
   }
-  .series-name {
-    font-family: 'IBM Plex Sans KR', sans-serif;
-    font-weight: 600;
-    font-size: 1.22rem;
-    line-height: 1.35;
-    color: var(--heading-color);
-    border-left: 4px solid var(--series-color);
-    padding-left: 0.65rem;
-    margin: 0 0 0.55rem;
-  }
-  .series-panel:hover .series-name span {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-  }
-  .series-summary {
-    color: var(--text-color);
-    font-size: 0.95rem;
-    line-height: 1.65;
-    margin: 0 0 0.6rem;
-  }
-  .series-meta {
-    color: var(--text-muted-color);
-    font-size: 0.85rem;
-    margin: 0;
-  }
-  .series-meta strong {
-    color: var(--link-color);
-    font-weight: 600;
-    margin-left: 0.5rem;
+  @media (prefers-reduced-motion: reduce) {
+    .slide li a::before { transition: none; }
+    .racc.pop { animation: none; }
   }
 
   /* 글 목록 */
@@ -187,7 +207,6 @@ layout: default
   }
 
   @media (max-width: 767.98px) {
-    .series-grid { grid-template-columns: minmax(0, 1fr); }
     .post-index li a {
       grid-template-columns: auto minmax(0, 1fr);
       row-gap: 0.2rem;
@@ -205,41 +224,39 @@ layout: default
         {% assign n_series = n_series | plus: 1 %}
       {% endif %}
     {% endfor %}
-    <section class="home-intro">
-      <h1>iam-raccoon 의 프로젝트 기록</h1>
-      <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
+    <section class="stage">
+      <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0, 배경을 지워 씀 · 맥주 너구리(이스터 에그)는 출처 미상 (출처는 About) -->
+      <div class="racc" role="img" aria-label="쓰레기통에서 고개를 내민 너구리"></div>
+      <div class="slide">
+        <h1>iam-raccoon 의 프로젝트 기록</h1>
+        <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
+        <ol aria-label="연재">
+          {% for s in site.data.series %}
+            {% assign s_posts = site.categories[s.category] %}
+            {% if s_posts and s_posts.size > 0 %}
+              {% assign first = s_posts | last %}
+              {% assign start_url = s.start | default: first.url %}
+              <li><a href="{{ start_url | relative_url }}" style="--series-color: {{ s.color }}"><i></i><b>{{ s.name }}</b><span>{{ s_posts.size }}편</span></a></li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </div>
     </section>
-
-    <section class="series-grid" aria-label="연재">
-      {% for s in site.data.series %}
-        {% assign s_posts = site.categories[s.category] %}
-        {% if s.video and s_posts and s_posts.size > 0 %}
-          {% assign first = s_posts | last %}
-          {% assign latest = s_posts | first %}
-          {% assign y1 = first.date | date: '%Y' %}
-          {% assign y2 = latest.date | date: '%Y' %}
-          {% assign m1 = first.date | date: '%-m' %}
-          {% assign m2 = latest.date | date: '%-m' %}
-          <a class="series-panel" href="{{ first.url | relative_url }}" style="--series-color: {{ s.color }}">
-            <div class="series-media">
-              <video autoplay muted loop playsinline preload="metadata"
-                poster="{{ s.poster | relative_url }}" aria-label="{{ s.alt }}">
-                <source src="{{ s.video | relative_url }}" type="video/mp4">
-              </video>
-            </div>
-            <h2 class="series-name"><span>{{ s.name }}</span></h2>
-            <p class="series-summary">{{ s.summary }}</p>
-            <p class="series-meta">
-              {{ s_posts.size }}편,
-              {% if y1 == y2 and m1 == m2 %}{{ y1 }}년 {{ m1 }}월
-              {%- elsif y1 == y2 %}{{ y1 }}년 {{ m1 }}월 ~ {{ m2 }}월
-              {%- else %}{{ y1 }}년 {{ m1 }}월 ~ {{ y2 }}년 {{ m2 }}월{% endif %}
-              <strong>①편부터 읽기</strong>
-            </p>
-          </a>
-        {% endif %}
-      {% endfor %}
-    </section>
+    <script>
+      (() => {
+        const r = document.querySelector('.stage .racc');
+        if (!r) return;
+        let n = 0;
+        r.addEventListener('click', () => {
+          if (++n % 10) return;
+          const beer = r.classList.toggle('beer');
+          r.setAttribute('aria-label', beer ? '맥주 캔을 끌어안은 너구리' : '쓰레기통에서 고개를 내민 너구리');
+          r.classList.remove('pop');
+          void r.offsetWidth;
+          r.classList.add('pop');
+        });
+      })();
+    </script>
   {% endif %}
 
   <section class="post-index">
@@ -271,12 +288,3 @@ layout: default
   {% include post-paginator.html %}
 {% endif %}
 
-<script>
-  // 움직임 줄이기 설정이면 영상 대신 포스터만
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.series-media video').forEach(function (v) {
-      v.removeAttribute('autoplay');
-      v.pause();
-    });
-  }
-</script>

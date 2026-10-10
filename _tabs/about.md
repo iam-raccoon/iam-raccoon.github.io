@@ -24,3 +24,8 @@ iam-raccoon 의 프로젝트 기록입니다. 프로젝트마다 연재로 묶�
 - 숫자에는 출처 (실측 · 문헌 · 계산 · 시뮬) 를 붙입니다
 - 시뮬 결과는 조건과 시행 횟수를 같이 적습니다
 - 틀렸던 것도 지우지 않고 남깁니다
+
+## 그림 출처
+
+- 메인 화면 너구리 사진 : [Raccoon in a garbage can in Prospect Park](https://commons.wikimedia.org/wiki/File:Raccoon_in_a_garbage_can_in_Prospect_Park_%2872564%29.jpg) — Rhododendrites, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), 배경을 지워 씀
+- 메인 화면 어딘가에 숨은 맥주 너구리 : 출처를 알 수 없는 인터넷 사진의 배경만 지워 씀. 원작자께서 알려 주시면 출처를 적거나 내리겠습니다
