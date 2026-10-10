@@ -4,7 +4,7 @@ layout: default
 
 {% comment %}
   Chirpy v7.6.0 의 _layouts/home.html 을 바꾼 것.
-  첫 쪽 : 오린 실물 너구리 + 발표 슬라이드(연재 목록) (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
+  첫 쪽 : 쓰레기통 너구리 + 발표 슬라이드(연재 목록) (_data/series.yml) + 최근 글 한 줄 목록. 둘째 쪽부터 : 목록만.
   고정 글 · 쪽 나누기 계산은 원본 그대로.
 {% endcomment %}
 
@@ -58,34 +58,18 @@ layout: default
     border-radius: 4px;
   }
 
-  /* 소개 : 오린 실물 너구리 + 발표 슬라이드 (연재 목록)
-     peek = 슬라이드 뒤에서 고개를 내밂 (7), side = 슬라이드 옆에 서 있음 (11), side bin = 쓰레기통째 옆에 (7) */
+  /* 소개 : 쓰레기통째 오린 실물 너구리 + 발표 슬라이드 (연재 목록), 같은 바닥선에 선다 */
   .stage {
-    --rw: clamp(170px, 24vw, 230px);
     position: relative;
-    max-width: 800px;
-    margin: 0.25rem auto calc(var(--home-gap) * 1.6);
-  }
-  .racc { background: center bottom / contain no-repeat; }
-  .stage.peek { padding-top: calc(var(--rw) * 0.6); }
-  .stage.peek .racc {
-    position: absolute;
-    top: 0;
-    right: 9%;
-    width: var(--rw);
-    aspect-ratio: 520 / 373;
-    background-image: url("{{ '/assets/img/home/raccoon-7-cut.webp' | relative_url }}");
-  }
-  .stage.peek .slide { position: relative; z-index: 1; }
-  .stage.side {
     display: grid;
-    grid-template-columns: minmax(150px, 0.4fr) minmax(0, 1fr);
+    grid-template-columns: minmax(190px, 0.62fr) minmax(0, 1fr);
     align-items: end;
     gap: clamp(8px, 1.4vw, 16px);
+    max-width: 800px;
+    margin: 0.25rem auto calc(var(--home-gap) * 1.6);
     padding-bottom: 6px;
   }
-  /* 바닥선 : 너구리 발과 슬라이드가 같은 바닥에 선다 */
-  .stage.side::after {
+  .stage::after {
     content: "";
     position: absolute;
     left: 0;
@@ -95,20 +79,20 @@ layout: default
     border-radius: 1px;
     background: var(--main-border-color);
   }
-  .stage.side .racc {
-    aspect-ratio: 620 / 461;
-    background-image: url("{{ '/assets/img/home/raccoon-11-cut.webp' | relative_url }}");
-  }
-  /* bin = 쓰레기통째 슬라이드 옆에 섬 (7) */
-  .stage.side.bin { grid-template-columns: minmax(190px, 0.62fr) minmax(0, 1fr); }
-  .stage.side.bin .racc {
+  .racc {
     aspect-ratio: 1549 / 1192;
-    background-image: url("{{ '/assets/img/home/raccoon-7-bin.webp' | relative_url }}");
+    background: url("{{ '/assets/img/home/raccoon-7-bin.webp' | relative_url }}") center bottom / contain no-repeat;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* 이스터 에그 : 너구리를 10번 누르면 맥주 너구리 (다시 10번이면 원래대로) */
+  .racc.beer { background-image: url("{{ '/assets/img/home/raccoon-beer-cut.webp' | relative_url }}"); }
+  .racc.pop { animation: racc-pop 0.35s ease-out; }
+  @keyframes racc-pop {
+    40% { transform: scale(1.06) translateY(-4px); }
   }
   @media (max-width: 575.98px) {
-    .stage.side, .stage.side.bin { grid-template-columns: 1fr; }
-    .stage.side .racc { width: 62%; }
-    .stage.side.bin .racc { width: 72%; }
+    .stage { grid-template-columns: 1fr; }
+    .racc { width: 72%; }
   }
   .slide {
     display: flex;
@@ -171,6 +155,7 @@ layout: default
   }
   @media (prefers-reduced-motion: reduce) {
     .slide li a::before { transition: none; }
+    .racc.pop { animation: none; }
   }
 
   /* 글 목록 */
@@ -239,8 +224,8 @@ layout: default
         {% assign n_series = n_series | plus: 1 %}
       {% endif %}
     {% endfor %}
-    <section class="stage side bin">
-      <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0, 배경을 지워 씀 (출처는 About) -->
+    <section class="stage">
+      <!-- 너구리 사진 : 위키미디어 공용 CC BY-SA 4.0, 배경을 지워 씀 · 맥주 너구리(이스터 에그)는 출처 미상 (출처는 About) -->
       <div class="racc" role="img" aria-label="쓰레기통에서 고개를 내민 너구리"></div>
       <div class="slide">
         <h1>iam-raccoon 의 프로젝트 기록</h1>
@@ -257,6 +242,21 @@ layout: default
         </ol>
       </div>
     </section>
+    <script>
+      (() => {
+        const r = document.querySelector('.stage .racc');
+        if (!r) return;
+        let n = 0;
+        r.addEventListener('click', () => {
+          if (++n % 10) return;
+          const beer = r.classList.toggle('beer');
+          r.setAttribute('aria-label', beer ? '맥주 캔을 끌어안은 너구리' : '쓰레기통에서 고개를 내민 너구리');
+          r.classList.remove('pop');
+          void r.offsetWidth;
+          r.classList.add('pop');
+        });
+      })();
+    </script>
   {% endif %}
 
   <section class="post-index">
