@@ -97,19 +97,23 @@ layout: default
   }
   .ck-photo {
     flex: none;
-    width: clamp(150px, 26vw, 220px);
-    aspect-ratio: 1;
-    margin-right: -12px;
-    z-index: 2;
-    background: url("{{ '/assets/img/home/raccoon-hat.webp' | relative_url }}") center bottom / contain no-repeat;
+    width: clamp(160px, 22vw, 205px);
+    aspect-ratio: 398 / 640;
+    margin-right: -62px;          /* 잘린 꼬리 끝이 카드 뒤로 숨게 */
+    z-index: 0;
+    background: url("{{ '/assets/img/home/raccoon-beer.webp' | relative_url }}") center bottom / contain no-repeat;
     filter: drop-shadow(0 10px 14px rgba(15, 22, 34, 0.18));
-    transform-origin: 50% 100%;
+    transform-origin: 30% 100%;
     animation: ck-breathe 4.5s ease-in-out infinite;
   }
-  @keyframes ck-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.015, 0.99); } }
+  @keyframes ck-breathe { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-1.2deg); } }
   @media (max-width: 575.98px) {
     .term-wrap { flex-direction: column; align-items: center; }
-    .ck-photo { width: 140px; margin: 0 0 -4px; }
+    .ck-photo {
+      width: 120px; margin: 0 0 -26px;
+      -webkit-mask-image: linear-gradient(to left, transparent 0, #000 22%);
+              mask-image: linear-gradient(to left, transparent 0, #000 22%);
+    }
   }
   .term {
     position: relative;
@@ -239,8 +243,8 @@ layout: default
       <h1>iam-raccoon 의 프로젝트 기록</h1>
       <p>연재 {{ n_series }}개 · 글 {{ all_normal.size | plus: all_pinned.size }}편</p>
       <div class="term-wrap">
-        <!-- 너구리 사진 : chris-hayes (Flickr), 퍼블릭 도메인 — 배경을 지워 씀 -->
-        <div class="ck-photo" role="img" aria-label="털모자를 쓴 너구리"></div>
+        <!-- 너구리 사진 : 출처 미상 인터넷 사진 (원작자 요청 시 내림) — 배경을 지워 씀 -->
+        <div class="ck-photo" role="img" aria-label="맥주 캔을 끌어안고 늘어진 너구리"></div>
         <div class="term">
           <div class="term-bar">
             <i style="background:#ef6a5a"></i><i style="background:#f2bd4b"></i><i style="background:#5bc56a"></i>
