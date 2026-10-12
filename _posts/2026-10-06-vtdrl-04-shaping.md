@@ -43,11 +43,15 @@ def red_excess(red, decel: float) -> float:
     return max(0.0, float(v) - v_ok)
 ```
 
-![완주 판당 적색 중대 위반](/assets/img/vtdrl/red-light.png){: .light }
-![완주 판당 적색 중대 위반](/assets/img/vtdrl/red-dark.png){: .dark }
+![완주 에피소드당 적색 중대 위반](/assets/img/vtdrl/red-light.png){: .light }
+![완주 에피소드당 적색 중대 위반](/assets/img/vtdrl/red-dark.png){: .dark }
 _감속 곡선 벌로 3.63건에서 1.88건까지. 오른쪽 주황 막대가 선생님(0.09건)_
 
 완주 에피소드당 적색 중대는 기존(넘을 때 한 번) 3.63건에서, 곡선 계수 c = 0.3일 때 2.80건, c = 1.0에 과속 벌 3배를 같이 주면 1.88건까지 줄었음. 마지막 설정은 시드 3개 모두 서는 법을 배웠음. 새 테스트 윈도우에서 완주 포함 점수는 4.07 올랐음.
+
+위 숫자는 전부 오프라인 결과고, 나중에 실제 VTD에서도 같은 교차로를 찍어 봤음(코스 A 134번 신호). 적색으로 바뀌는 순간을 맞춰 네 개를 붙였음. 적색 벌을 넣기 전 학생은 황색에 45 km/h로 들어가서 적색에 그대로 지나감. 적색 벌을 넣은 뒤 학생과 ⑥편에서 다시 학습한 학생은 적색 앞에 섬. 근데 둘 다 정지선보다 꽤 앞에서 일찍 섬.
+
+{% include embed/video.html src='/assets/video/vtdrl/vtd-red-light.mp4' title='실제 VTD, 코스 A 134번 신호. 왼쪽 위 선생님, 오른쪽 위 적색 벌을 넣기 전 학생, 아래 두 칸은 적색 벌을 넣은 뒤 학생과 다시 학습한 학생' autoplay=true loop=true muted=true %}
 
 ## 차로 벌
 

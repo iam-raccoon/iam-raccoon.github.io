@@ -78,7 +78,13 @@ _처음 학생 + 보정은 ⑤편에서 다시 학습 없이 주행기에 신호
 
 다시 학습한 학생은 6번 모두 리스폰이 0이었음. 처음 학생에 어댑터를 덧댄 것과 완주 수는 5/6으로 같은데, 조향 보정 없이 코스 A 교차로를 통과했고 완주 포함 점수도 82.23으로 79.43보다 높음.
 
+코스 B 하나를 처음부터 끝까지 달린 장면(4배속, 2.6 km, 99.4점).
+
+{% include embed/video.html src='/assets/video/vtdrl/vtd-courseb-4x.mp4' title='[VTD] 다시 학습한 학생이 코스 B 전체를 달린 장면. 4배속, 완주 99.4점, 리스폰 0' autoplay=true loop=true muted=true %}
+
 course_E에서는 109번 신호가 순수 녹색(상태 3)이었는데도 72% 지점에서 서 있다가 끝났음. 녹색 + 좌회전 문제는 아니고, 원인은 확인 못 했음.
+
+{% include embed/video.html src='/assets/video/vtdrl/vtd-green-stall-e.mp4' title='[VTD] 코스 E 109번 신호. 적색에 섰다가 녹색으로 바뀌어도 출발하지 않음(원인 미확인)' autoplay=true loop=true muted=true %}
 
 ## 교차로 속도
 
@@ -95,6 +101,10 @@ VTD에서 급커브 교차로 최고 속도는 코스 A에서 41 km/h가 35 km/h
 같은 정책이 [오프] 합격 기준에서는 단계 ② 94.4%였는데, [VTD] 신호 코스는 5/6을 완주함. 오프라인에 넣은 옆 가속도 한계 6 m/s²랑 빠른 속도의 언더스티어가 실제 VTD보다 크게 잡힌 걸로 보임. 12~20 m/s에서 K = 0.016 모델이 내는 회전 비율은 0.42인데, ⑤편에서 잰 VTD 실측은 0.52였음.
 
 이번 결과는 VTD를 코스마다 한 번씩만 잰 것이고, 정지차와 대향차가 있는 시나리오는 다시 재지 않았음.
+
+다만 코스 G 정지차 시나리오를 한 번 돌려 보긴 했음. 선생님은 줄인 뒤 옆 차로로 비켜 가는데, 다시 학습한 학생은 못 비키고 천천히 부딪침. 점수는 안 쟀고, 정지차 비키기는 아직 남은 약점임.
+
+{% include embed/video.html src='/assets/video/vtdrl/vtd-stopped-car.mp4' title='[VTD] 코스 G 정지차 시나리오를 한 번 돌려 본 장면(점수는 안 잼). 왼쪽 선생님(2배속)은 비켜 가고, 오른쪽 다시 학습한 학생은 부딪침' autoplay=true loop=true muted=true %}
 
 ## 다음
 
