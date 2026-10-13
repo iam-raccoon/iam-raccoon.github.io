@@ -35,6 +35,10 @@ VTD를 모는 주행기는 오프라인 환경이랑 같은 관측, 행동, 심�
 
 40 km/h로 반지름 7 m를 돌려면 옆 가속도가 1.7~1.9 g 필요함. 실제 타이어로는 안 되는 속도임. 근데 [①편]({% post_url 2026-09-16-vtdrl-01-offline-world %})의 오프라인 자전거 모델에는 미끄러지는 한계가 없어서 그 속도로도 돌 수 있었고, 학생은 그걸 배웠음.
 
+옆 가속도 한계가 있는 차로 계산해 보면 차이가 바로 보임. 반지름 7 m 커브를 15 km/h로는 돌고(필요한 옆 가속도 2.5 m/s²), 40 km/h로는 17.6 m/s²가 필요해서 바깥으로 밀려 나감.
+
+{% include embed/video.html src='/assets/video/vtdrl/physics-grip-limit.mp4' title='계산 그림(녹화 아님). 옆 가속도 한계를 6 m/s²로 두면 15 km/h는 반지름 7 m 커브를 돌고, 40 km/h는 반지름 21 m로 밀려 길 밖으로 나감' autoplay=true loop=true muted=true %}
+
 실제 VTD 화면으로 보면 아래와 같음. 같은 코스 A 교차로를 선생님과 학생이 각자 한 번씩 달린 녹화를 나란히 붙였음. 같은 순간 속도계가 선생님 22 km/h, 학생 38 km/h.
 
 {% include embed/video.html src='/assets/video/vtdrl/vtd-turn-side-by-side.mp4' title='[VTD] 코스 A 교차로(반지름 7 m 우회전). 왼쪽 선생님은 천천히 돌며 차로를 지키고, 오른쪽 학생은 빠르게 들어가 길 밖으로 밀려남' autoplay=true loop=true muted=true %}
@@ -55,6 +59,10 @@ _속도별 요레이트 비율. VTD는 12~20 m/s에서 0.52_
 
 요레이트 = `v · tan δ / (L + K · v²)`로 맞추면 VTD는 K = 0.016 s²/m가 나옴(런별 0.012~0.021, 오차제곱합 −80%). 오프라인 모델은 0.001이었음. 가속 응답은 둘이 같았음(시정수 0.25 s, 이득 0.99).
 
+K = 0.016으로 그려 보면, 같은 조향 10°에서 18 km/h는 반지름 19 m, 40 km/h는 28 m 원을 그림. 언더스티어가 없는 차는 속도와 상관없이 17 m임.
+
+{% include embed/video.html src='/assets/video/vtdrl/physics-understeer.mp4' title='계산 그림(녹화 아님). VTD 주행 기록으로 맞춘 K = 0.016으로 그린 것. 같은 조향 10°에서 빠를수록 큰 원을 그림' autoplay=true loop=true muted=true %}
+
 ## 원인 3: 처음 보는 신호
 
 코스 D와 H에서는 학생이 적색에 선 뒤 출발을 안 했음. 그래서 VTD 신호 프레임 분포를 세어 봤음.
@@ -66,6 +74,10 @@ _VTD 신호 상태 분포. 녹색 + 좌회전은 오프라인 환경에 없던 �
 적색 51.0%, 녹색 + 좌회전 화살표(상태 5) 27.6%, 녹색 9.6%, 황색 7.8%, 점멸 3.9%였음.
 
 오프라인 환경은 녹색 신호를 상태 3으로만 냈음. 학생은 상태 5를 본 적이 없어서, 적색 뒤에 5가 와도 아직 녹색이 아니라고 보고 계속 서 있었음. 채점기와 규칙 스택은 5를 녹색으로 봄.
+
+코스 D 159번 신호에서 찍은 장면임. 왼쪽 처음 학생은 녹색 + 좌회전이 켜져도 0 km/h로 서 있고, 오른쪽은 아래 신호 보정을 켠 학생이 같은 교차로를 지나감.
+
+{% include embed/video.html src='/assets/video/vtdrl/vtd-green-left.mp4' title='[VTD] 코스 D 159번 신호. 왼쪽 처음 학생은 녹색 + 좌회전에도 서 있고, 오른쪽 신호 보정을 켠 학생은 지나감' autoplay=true loop=true muted=true %}
 
 ## 재학습 없이 보정
 
