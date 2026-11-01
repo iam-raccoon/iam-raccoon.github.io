@@ -9,7 +9,7 @@ image:
 ---
 
 6륜 UGV가 재난 건물을 혼자 돌면서 조난자를 찾아 상태를 분류(트리아지)하고, 열화상으로 화재 위치를 찍는 시뮬레이션을 만들고 있음. ROS 2 Humble + Gazebo Harmonic 기준임.
-첫 주에는 Gazebo 버전을 옮기다가 로봇이 4.5 m 공중으로 날아갔고, 조난자 위치는 2~3 m씩 틀렸음. 이건 그 기록임.
+첫 주에는 Gazebo 버전을 옮기다가 로봇이 4.5 m 공중으로 날아갔고, 조난자 위치는 2~3 m씩 틀렸음.
 
 코드는 공개 레포 [iam-raccoon/ugv-rescue-robot](https://github.com/iam-raccoon/ugv-rescue-robot)에 있음.
 
@@ -19,7 +19,7 @@ image:
 - 센서: 360° LiDAR, RGB-D 카메라, 열화상
 - 주행: SLAM + Nav2
 - 조난자: YOLOv8-pose 골격의 자세로 트리아지 (누움, 앉음, 서 있음)
-- 화재: 열화상 blob과 depth로 위치 추정
+- 화재: 열화상의 열 덩어리와 깊이로 위치 추정
 
 LiDAR SLAM은 벽이 어디 있는지는 알려 주지만, 카메라가 그곳을 실제로 들여다봤는지는 모름. 이 프로젝트는 주로 그 차이를 다룸([②편]({% post_url 2026-08-11-ugv-02-coverage %})).
 
@@ -90,7 +90,7 @@ def bearing_from_pixel(cx: float, turret_yaw: float,
 
 ## 다음
 
-이제 제대로 보고 제대로 찍음. 근데 큰 건물에서 15분을 돌렸더니 조난자 0명, 화재 0건이었음. 지도는 다 그렸는데 아무것도 못 본 것. 이건 [②편]({% post_url 2026-08-11-ugv-02-coverage %})에서.
+근데 큰 건물에서 15분을 돌렸더니 조난자 0명, 화재 0건이었음. 지도는 다 그렸는데 아무것도 못 본 것. 이건 [②편]({% post_url 2026-08-11-ugv-02-coverage %})에서.
 
 ## 연재 목록
 
