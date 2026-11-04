@@ -97,7 +97,4 @@ V 프로세스에 맞춘 계획은 다음과 같이 짰음. 설계 단계마다 
 2. [사용자 요구와 AHP·QFD]({% post_url 2026-09-15-snake-robot-02-requirements %})
 3. [시험 통로와 개념 형상]({% post_url 2026-09-22-snake-robot-03-concept %})
 4. [시험 조건과 기본 형상 I]({% post_url 2026-10-06-snake-robot-04-baseline %})
-5. [관절 간섭과 바퀴 배치]({% post_url 2026-10-06-snake-robot-05-joints-wheels %})
-6. [오르막과 요철]({% post_url 2026-10-07-snake-robot-06-slope-rough %})
-7. [복귀 단차와 트레일러 멈춤턱]({% post_url 2026-10-07-snake-robot-07-return %})
-8. [요구 추적과 관절 고장 시험]({% post_url 2026-10-07-snake-robot-08-trace-fault %})
+5. [기본 형상 II]({% post_url 2026-10-13-snake-robot-05-baseline2 %})
